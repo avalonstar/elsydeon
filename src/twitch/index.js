@@ -4,11 +4,13 @@ const chalk = require('chalk');
 const logger = require('winston');
 const TwitchJS = require('twitch-js');
 
+const { TWITCH_IRC_PASSWORD, TWITCH_IRC_USERNAME } = process.env;
+
 const options = {
   channels: ['#avalonstar'],
   identity: {
-    username: process.env.TWITCH_IRC_USERNAME,
-    password: process.env.TWITCH_IRC_PASSWORD
+    username: TWITCH_IRC_USERNAME,
+    password: TWITCH_IRC_PASSWORD
   }
 };
 
