@@ -12,7 +12,10 @@ const failureEmbed = description => ({
   embed: {
     title: 'ERROR',
     description,
-    color: 16716340
+    color: 16716340,
+    thumbnail: {
+      url: 'https://static-cdn.jtvnw.net/emoticons/v1/296250/2.0'
+    }
   }
 });
 

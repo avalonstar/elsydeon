@@ -19,7 +19,7 @@ const handleMessage = async message => {
       isStaff && polls.handleInput(input, message);
       break;
     case 'quote':
-      const quote = await quotes.handleGetInput(input);
+      const quote = await quotes.handleGetInput(input, message);
       message.channel.send(quote);
       break;
     default:

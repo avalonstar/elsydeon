@@ -23,7 +23,7 @@ const quoteFound = quote =>
 
 const handleGetInput = async (input, message) => {
   if (input.length > 1) {
-    utils.failureEmbed(
+    return utils.failureEmbed(
       `Woah there, one word at a time, **${message.author.username}**.`
     );
   }
