@@ -17,9 +17,11 @@ const reactions = {
 };
 
 const handleInput = async (input, message) => {
-  let [question, answers] = input.split(/^"([^\"]*?)" (.*)/g).slice(1, -1);
+  let [question, answers] = input
+    .join(' ')
+    .split(/^"([^\"]*?)" (.*)/g)
+    .slice(1, -1);
   answers = answers.match(/"[^\"]+"/g);
-
   const choices = answers
     .map(
       (answer, i) =>

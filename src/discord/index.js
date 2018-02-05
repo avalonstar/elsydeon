@@ -16,7 +16,7 @@ const handleMessage = async message => {
   switch (command) {
     case 'poll':
       const isStaff = memberRole.has(staffRole.id);
-      isStaff && polls.handleInput(input.join(' '), message);
+      isStaff && polls.handleInput(input, message);
       break;
     case 'quote':
       const quote = await quotes.handleGetInput(input);
