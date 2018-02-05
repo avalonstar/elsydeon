@@ -4,7 +4,7 @@ const successEmbed = (contentArgs, footerArgs) => ({
   embed: {
     color: 4886754,
     footer: { ...footerArgs },
-    ...args
+    ...contentArgs
   }
 });
 
