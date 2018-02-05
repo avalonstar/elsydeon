@@ -42,7 +42,7 @@ const handleInput = async (input, message) => {
       }
     })
   );
-  answers.match(/"[^\"]+"/g).forEach((answer, i) => {
+  answers.forEach((answer, i) => {
     poll.react(reactions[i + 1]);
   });
 };
