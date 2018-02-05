@@ -32,6 +32,7 @@
     "discord.js": "^11.3.0",
     "dotenv": "^5.0.0",
     "firebase-admin": "^5.8.2",
+    "number-to-words": "^1.2.3",
     "twitch-js": "^1.2.10",
     "winston": "^2.4.0"
   }
