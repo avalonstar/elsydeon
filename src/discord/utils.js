@@ -1,7 +1,11 @@
 'use strict';
 
-const successEmbed = args => ({
-  embed: { ...args }
+const successEmbed = (contentArgs, footerArgs) => ({
+  embed: {
+    color: 4886754,
+    footer: { ...footerArgs },
+    ...args
+  }
 });
 
 const failureEmbed = description => ({

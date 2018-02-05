@@ -32,15 +32,16 @@ const handleInput = async (input, message) => {
     .replace(/,/g, '');
 
   const poll = await message.channel.send(
-    utils.successEmbed({
-      title: question,
-      description: `\n${choices}\n`,
-      color: 4886754,
-      footer: {
+    utils.successEmbed(
+      {
+        title: question,
+        description: `\n${choices}\n`
+      },
+      {
         text:
           'Vote on the poll by reacting with the cooresponding number below!'
       }
-    })
+    )
   );
   answers.forEach((answer, i) => {
     poll.react(reactions[i + 1]);
