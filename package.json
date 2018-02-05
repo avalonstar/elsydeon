@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "chalk": "^2.3.0",
+    "discord.js": "^11.3.0",
     "dotenv": "^5.0.0",
     "winston": "^2.4.0"
   }
