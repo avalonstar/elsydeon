@@ -1,0 +1,10 @@
+{
+  "name": "elsydeon",
+  "version": "1.0.0",
+  "description": "Shenanigans, the bot.",
+  "main": "app.js",
+  "repository": "https://github.com/avalonstar/elsydeon.git",
+  "author": "Bryan Veloso <bryan@avalonstar.com>",
+  "license": "MIT",
+  "private": true
+}
