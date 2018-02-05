@@ -16,7 +16,7 @@
   "scripts": {
     "precommit": "lint-staged",
     "start": "node app.js"
-  },  
+  },
   "devDependencies": {
     "eslint": "^4.17.0",
     "eslint-config-airbnb-base": "^12.1.0",
@@ -26,5 +26,8 @@
     "husky": "^0.14.3",
     "lint-staged": "^6.1.0",
     "prettier": "^1.10.2"
+  },
+  "dependencies": {
+    "dotenv": "^5.0.0"
   }
 }
