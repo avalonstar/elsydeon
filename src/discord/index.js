@@ -12,11 +12,12 @@ const handleMessage = message => {
   const staffRole = message.guild.roles.find('name', 'Staff');
   const [command, ...input] = message.content.split(' ');
 
-  switch (true) {
-    case command === 'poll' && memberRole.has(staffRole.id):
-      polls.handleInput(input.join(' '), message);
+  switch (command) {
+    case 'poll':
+      const isStaff = memberRole.has(staffRole.id);
+      isStaff && polls.handleInput(input.join(' '), message);
       break;
-    case command === 'quote':
+    case 'quote':
       break;
     default:
       break;
