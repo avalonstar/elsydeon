@@ -17,6 +17,6 @@ const failureEmbed = description => ({
 });
 
 module.exports = {
-  successEmbed: successEmbed,
-  failureEmbed: failureEmbed
+  successEmbed,
+  failureEmbed
 };
