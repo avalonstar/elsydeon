@@ -13,7 +13,9 @@ const twitch = require('./src/twitch');
 logger.info(chalk.cyan.bold('Elsydeon says hello.'));
 
 async function start() {
-  await Promise.all([db(), discord(), twitch()]);
+  await db();
+  await discord();
+  await twitch();
 }
 
 start();
