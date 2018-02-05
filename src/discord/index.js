@@ -4,10 +4,11 @@ const logger = require('winston');
 const Discord = require('discord.js');
 
 const polls = require('./polls');
+const quotes = require('./quotes');
 
 const prefix = '!';
 
-const handleMessage = message => {
+const handleMessage = async message => {
   const memberRole = message.member.roles;
   const staffRole = message.guild.roles.find('name', 'Staff');
   const [command, ...input] = message.content.split(' ');
@@ -18,6 +19,8 @@ const handleMessage = message => {
       isStaff && polls.handleInput(input.join(' '), message);
       break;
     case 'quote':
+      const quote = await quotes.handleGetInput(input);
+      message.channel.send(quote);
       break;
     default:
       break;
