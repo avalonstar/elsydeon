@@ -1,3 +1,6 @@
+/* eslint-disable new-cap */
+/* eslint-disable no-param-reassign */
+
 'use strict';
 
 const chalk = require('chalk');
@@ -5,6 +8,7 @@ const logger = require('winston');
 const TwitchJS = require('twitch-js');
 
 const punt = require('./punt');
+const quotes = require('./quotes');
 
 const { TWITCH_IRC_PASSWORD, TWITCH_IRC_USERNAME } = process.env;
 const options = {
@@ -20,8 +24,14 @@ const handleMessage = (client, args) => {
   const [command, ...input] = args.message.split(' ');
 
   switch (command) {
+    case 'addquote':
+      quotes.handleAddQuote(client, input, args);
+      break;
     case 'punt':
       punt.handleInput(client, args);
+      break;
+    case 'quote':
+      quotes.handleGetQuote(client, input, args);
       break;
     default:
       break;
