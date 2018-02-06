@@ -58,7 +58,9 @@ const handleGetQuote = async (client, input, { channel, userstate }) => {
   } else if (query) {
     let snapshot = await handlers.handleGetQuotes();
     snapshot = transforms.snapshotToArray(snapshot);
-    const quotes = snapshot.filter(q => q.text.includes(query));
+    const quotes = snapshot.filter(q =>
+      q.text.toLowerCase().includes(query.toLowerCase())
+    );
     if (quotes.length > 0) {
       const quote = _.sample(quotes);
       const success = `searches for "${query}" and grabs quote #${quote.id} : ${

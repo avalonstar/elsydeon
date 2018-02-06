@@ -42,7 +42,9 @@ const handleGetQuote = async (input, message) => {
   } else if (query) {
     let snapshot = await handlers.handleGetQuotes();
     snapshot = transforms.snapshotToArray(snapshot);
-    const quotes = snapshot.filter(q => q.text.includes(query));
+    const quotes = snapshot.filter(q =>
+      q.text.toLowerCase().includes(query.toLowerCase())
+    );
     if (!quotes.length > 0) {
       const error = `I can't find any quotes with "**${query}**" in them.`;
       return utils.failureEmbed(error);
