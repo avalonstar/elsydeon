@@ -12,12 +12,11 @@ const utils = require('./utils');
 const quoteFound = quote =>
   utils.successEmbed(
     {
+      title: `Quote #${quote.id}`,
       description: `\`\`\`${quote.text}\`\`\``
     },
     {
-      text: `Quote #${quote.id}. Quoted by ${quote.quoter} ${moment(
-        quote.timestamp
-      ).fromNow()}.`
+      text: `Quoted by ${quote.quoter} ${moment(quote.timestamp).fromNow()}.`
     }
   );
 
