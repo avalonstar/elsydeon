@@ -1,6 +1,6 @@
 'use strict';
 
-const handleInput = (client, { channel, userstate, message }) => {
+const handleInput = (client, { channel, userstate }) => {
   const username = userstate['display-name'];
   if (userstate.mod === true || channel === `#${userstate.username}`) {
     client.action(

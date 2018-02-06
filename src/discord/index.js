@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+
 'use strict';
 
 const logger = require('winston');
@@ -14,14 +16,16 @@ const handleMessage = async message => {
   const [command, ...input] = message.content.split(' ');
 
   switch (command) {
-    case 'poll':
+    case 'poll': {
       const isStaff = memberRole.has(staffRole.id);
       isStaff && polls.handleInput(input, message);
       break;
-    case 'quote':
-      const quote = await quotes.handleGetInput(input, message);
+    }
+    case 'quote': {
+      const quote = await quotes.handleGetQuote(input, message);
       message.channel.send(quote);
       break;
+    }
     default:
       break;
   }

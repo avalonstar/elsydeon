@@ -21,7 +21,7 @@ const quoteFound = quote =>
     }
   );
 
-const handleGetInput = async (input, message) => {
+const handleGetQuote = async (input, message) => {
   if (input.length > 1) {
     return utils.failureEmbed(
       `Woah there, one word at a time, **${message.author.username}**.`
@@ -57,5 +57,5 @@ const handleGetInput = async (input, message) => {
 };
 
 module.exports = {
-  handleGetInput
+  handleGetQuote
 };

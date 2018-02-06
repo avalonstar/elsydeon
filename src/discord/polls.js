@@ -17,11 +17,11 @@ const reactions = {
 };
 
 const handleInput = async (input, message) => {
-  let [question, answers] = input
+  let [question, answers] = input // eslint-disable-line
     .join(' ')
-    .split(/^"([^\"]*?)" (.*)/g)
+    .split(/^"([^"]*?)" (.*)/g)
     .slice(1, -1);
-  answers = answers.match(/"[^\"]+"/g);
+  answers = answers.match(/"[^"]+"/g);
   const choices = answers
     .map(
       (answer, i) =>
