@@ -25,29 +25,24 @@ const handleAddQuote = (client, input, { channel, userstate }) => {
       text,
       timestamp: Date.now()
     };
+
+    const success = `has added the quote to the database. Blame yourself or God. avalonPLS`;
     Promise.all([
       handlers.handleAddQuote(payload),
-      client.action(
-        channel,
-        `has added the quote to the database. Blame yourself or God. avalonPLS`
-      )
+      client.action(channel, success)
     ]);
   } else {
-    client.action(
-      channel,
-      `has OCD and can't accept that quote. Please format it like so: "<quote>" ~ @username`
-    );
+    const error = `has OCD and can't accept that quote. Please format it like so: "<quote>" ~ @username`;
+    client.action(channel, error);
   }
 };
 
 const handleGetQuote = async (client, input, { channel, userstate }) => {
   if (input.length > 1) {
-    client.action(
-      channel,
-      `slaps ${
-        userstate['display-name']
-      }. Woah there, one word at a time. avalonBAKA`
-    );
+    const error = `slaps ${
+      userstate['display-name']
+    }. Woah there, one word at a time. avalonBAKA`;
+    client.action(channel, error);
   }
 
   const query = input[0];
@@ -57,10 +52,8 @@ const handleGetQuote = async (client, input, { channel, userstate }) => {
       const quote = snapshot.val();
       client.action(channel, `grabs quote #${quote.id}: ${quote.text}`);
     } else {
-      client.action(
-        channel,
-        `can't find the quote you asked for. Stop confusing me. avalonBAKA`
-      );
+      const error = `can't find the quote you asked for. Stop confusing me. avalonBAKA`;
+      client.action(channel, error);
     }
   } else if (query) {
     let snapshot = await handlers.handleGetQuotes();
@@ -68,15 +61,13 @@ const handleGetQuote = async (client, input, { channel, userstate }) => {
     const quotes = snapshot.filter(q => q.text.includes(query));
     if (quotes.length > 0) {
       const quote = _.sample(quotes);
-      client.action(
-        channel,
-        `searches for "${query}" and grabs quote #${quote.id} : ${quote.text}`
-      );
+      const success = `searches for "${query}" and grabs quote #${quote.id} : ${
+        quote.text
+      }`;
+      client.action(channel, success);
     } else {
-      client.action(
-        channel,
-        `can't find any quotes with "${query}" in them. avalonBLIND`
-      );
+      const error = `can't find any quotes with "${query}" in them. avalonBLIND`;
+      client.action(channel, error);
     }
   } else {
     let snapshot = await handlers.handleGetQuotes();
