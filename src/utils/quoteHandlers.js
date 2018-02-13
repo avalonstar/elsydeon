@@ -8,14 +8,11 @@ const handleAddQuote = async payload => {
   const increment = await ref
     .child('count')
     .transaction(current => (current || 0) + 1);
-  if (increment.comitted) {
-    const id = increment.snapshot.val();
-    ref
-      .child('list')
-      .child(`quote-${id}`)
-      .setWithPriority(Object.assign({ id }, payload), payload.timestamp);
-  }
-  return ref;
+  const id = increment.snapshot.val();
+  return ref
+    .child('list')
+    .child(`quote-${id}`)
+    .setWithPriority(Object.assign({ id }, payload), payload.timestamp);
 };
 
 const handleGetQuotes = () => {
