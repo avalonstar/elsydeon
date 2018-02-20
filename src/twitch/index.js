@@ -7,8 +7,9 @@ const chalk = require('chalk');
 const logger = require('winston');
 const TwitchJS = require('twitch-js');
 
-const punt = require('./punt');
+const commands = require('./commands');
 const quotes = require('./quotes');
+const vanity = require('./vanity');
 
 const { TWITCH_IRC_PASSWORD, TWITCH_IRC_USERNAME } = process.env;
 const options = {
@@ -20,23 +21,33 @@ const options = {
 };
 const prefix = '!';
 
-const handleMessage = (client, args) => {
-  const [command, ...input] = args.message.split(' ');
+const getCommand = (command, client, input, args) => {
+  const list = {
+    // Quotes.
+    addquote: () => quotes.handleAddQuote(client, input, args),
+    quote: () => quotes.handleGetQuote(client, input, args),
 
-  switch (command) {
-    case 'addquote':
-      quotes.handleAddQuote(client, input, args);
-      break;
-    case 'punt':
-      punt.handleInput(client, args);
-      break;
-    case 'quote':
-      quotes.handleGetQuote(client, input, args);
-      break;
-    default:
-      break;
-  }
+    // Miscellaneous.
+    andback: () => commands.andback(client, args),
+    forward: () => commands.forward(client, args),
+    fuckedd: () => commands.fuckedd(client, args),
+    punt: () => commands.punt(client, args),
+    yoship: () => commands.yoship(client, args),
+
+    // Vanity.
+    heybryan: () => vanity.heybryan(client, args),
+    heyeasy: () => vanity.heyeasy(client, args),
+    heyfires: () => vanity.heyfires(client, args),
+    heyheather: () => vanity.heyheather(client, args),
+    heykay: () => vanity.heykay(client, args),
+    provoke: () => vanity.provoke(client, args)
+  };
+
+  return list[command]();
 };
+
+const handleMessage = (client, params, args) =>
+  getCommand(params.command, client, params.input, args);
 
 const initializeTwitch = () => {
   const client = new TwitchJS.client(options);
@@ -52,7 +63,8 @@ const initializeTwitch = () => {
     if (!message.startsWith(prefix)) return;
 
     message = message.substring(prefix.length);
-    handleMessage(client, { channel, userstate, message });
+    const [command, ...input] = message.split(' ');
+    handleMessage(client, { command, input }, { channel, userstate, message });
   });
 
   return client;
