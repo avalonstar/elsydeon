@@ -60,7 +60,7 @@ const initializeTwitch = () => {
   });
 
   client.on('roomstate', channel => {
-    client.action(channel, `avalonDERP`);
+    client.action(channel, `says hello. avalonDERP`);
   });
 
   client.on('chat', (channel, userstate, message) => {
