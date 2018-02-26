@@ -43,7 +43,7 @@ const getCommand = (command, client, input, args) => {
     provoke: () => vanity.provoke(client, args)
   };
 
-  return list[command]();
+  return Object.keys(list).includes(command) && list[command]();
 };
 
 const handleMessage = (client, params, args) =>
@@ -57,6 +57,10 @@ const initializeTwitch = () => {
     logger.info(
       `Twitch.js is connected to ${chalk.bold(`${address}:${port}`)}.`
     );
+  });
+
+  client.on('roomstate', channel => {
+    client.action(channel, `avalonDERP`);
   });
 
   client.on('chat', (channel, userstate, message) => {
