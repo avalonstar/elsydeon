@@ -6,6 +6,7 @@ const logger = require('winston');
 const Discord = require('discord.js');
 
 const polls = require('./polls');
+const announce = require('./announce');
 const quotes = require('./quotes');
 
 const prefix = '!';
@@ -48,6 +49,7 @@ const initializeDiscord = () => {
     handleMessage(message);
   });
 
+  announce(client);
   return client;
 };
 
