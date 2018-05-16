@@ -3,6 +3,7 @@
 
 'use strict';
 
+const _ = require('lodash');
 const chalk = require('chalk');
 const logger = require('winston');
 const TwitchJS = require('twitch-js');
@@ -46,6 +47,20 @@ const getCommand = (command, client, input, args) => {
   return Object.keys(list).includes(command) && list[command]();
 };
 
+const greetings = [
+  `says hello. avalonDERP`,
+  `boops your nose. avalonBLEP`,
+  `scolds you for not cleaning up after yourself. avalonBAKA`,
+  `could not find the balls. avalonBLIND`,
+  `thinks your cute. avalonEYES`,
+  `is attracted to you. avalonSHY`,
+  `after realizing that you're not wearing pants: avalonWAAH`,
+  `kicked your RNG in the groin. avalonPLS`,
+  `knows what you did last summer. avalonO`,
+  `isn't here. avalonLURK`,
+  `gives you a hug because you deserve it. avalonHUG`
+];
+
 const handleMessage = (client, params, args) =>
   getCommand(params.command, client, params.input, args);
 
@@ -60,7 +75,7 @@ const initializeTwitch = () => {
   });
 
   client.on('roomstate', channel => {
-    client.action(channel, `says hello. avalonDERP`);
+    client.action(channel, _.sample(greetings));
   });
 
   client.on('chat', (channel, userstate, message) => {
