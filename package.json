@@ -18,24 +18,24 @@
     "start": "node app.js"
   },
   "devDependencies": {
-    "eslint": "^4.17.0",
+    "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-prettier": "^2.6.0",
     "husky": "^0.14.3",
-    "lint-staged": "^6.1.0",
-    "prettier": "^1.10.2"
+    "lint-staged": "^7.1.0",
+    "prettier": "^1.12.1"
   },
   "dependencies": {
-    "chalk": "^2.3.0",
-    "discord.js": "^11.3.0",
-    "dotenv": "^5.0.0",
-    "firebase-admin": "^5.8.2",
-    "lodash": "^4.17.5",
-    "moment": "^2.20.1",
+    "chalk": "^2.4.1",
+    "discord.js": "^11.3.2",
+    "dotenv": "^5.0.1",
+    "firebase-admin": "^5.12.1",
+    "lodash": "^4.17.10",
+    "moment": "^2.22.1",
     "number-to-words": "^1.2.3",
-    "twitch-js": "^1.2.10",
-    "winston": "^2.4.0"
+    "twitch-js": "^2.0.0-alpha.20",
+    "winston": "^2.4.2"
   }
 }
