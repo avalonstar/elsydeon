@@ -73,6 +73,10 @@ const unsubscribeFromNotifications = message => {
         `sorry for bothering you. You will no longer receive go-live notifications. <:avalonFEELS:404711501929119757>`
       )
       .catch(console.error);
+  } else {
+    message.reply(
+      `you didn't even want to be notified in the first place. Why you gotta be like that? <:dittySAD:281983387395293185>`
+    );
   }
 };
 
