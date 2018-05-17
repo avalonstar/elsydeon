@@ -27,6 +27,14 @@ const handleMessage = async message => {
       message.channel.send(quote);
       break;
     }
+    case 'notify': {
+      announce.subscribeToNotifications(message);
+      break;
+    }
+    case 'unnotify': {
+      announce.unsubscribeFromNotifications(message);
+      break;
+    }
     default:
       break;
   }
