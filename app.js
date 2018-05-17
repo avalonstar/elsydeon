@@ -15,7 +15,7 @@ logger.info(chalk.cyan.bold('Elsydeon says hello.'));
 async function start() {
   await db();
   await discord();
-  // await twitch();
+  await twitch();
 }
 
 start();
