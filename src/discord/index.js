@@ -6,6 +6,7 @@ const logger = require('winston');
 const Discord = require('discord.js');
 
 const polls = require('./polls');
+const announce = require('./announce');
 const quotes = require('./quotes');
 
 const prefix = '!';
@@ -24,6 +25,14 @@ const handleMessage = async message => {
     case 'quote': {
       const quote = await quotes.handleGetQuote(input, message);
       message.channel.send(quote);
+      break;
+    }
+    case 'notify': {
+      announce.subscribeToNotifications(message);
+      break;
+    }
+    case 'unnotify': {
+      announce.unsubscribeFromNotifications(message);
       break;
     }
     default:
@@ -48,6 +57,7 @@ const initializeDiscord = () => {
     handleMessage(message);
   });
 
+  announce(client);
   return client;
 };
 
