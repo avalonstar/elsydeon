@@ -35,6 +35,14 @@ const handleMessage = async message => {
       announce.unsubscribeFromNotifications(message);
       break;
     }
+    case 'ping': {
+      message
+        .reply(
+          `da fuq do you think I am? A robot? <:DerpDerp:431196977263411211>`
+        )
+        .catch(console.error);
+      break;
+    }
     default:
       break;
   }
