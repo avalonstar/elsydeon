@@ -62,7 +62,7 @@ const initializeDiscord = () => {
     if (!message.content.startsWith(prefix)) return;
 
     message.content = message.content.substring(prefix.length);
-    handleMessage(message.toLowerCase());
+    handleMessage(message);
   });
 
   announce(client);
