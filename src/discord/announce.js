@@ -30,10 +30,11 @@ const emoteIDs = [
 ];
 
 const sendLiveNotification = client => {
+  const content = `Calling all Crusasders (<@&${roleId}>) ⤇ https://twitch.tv/avalonstar/`;
   const embed = {
     color: 4886754,
     title: `[ A☆ / ${moment().format('MMMM Do, YYYY')} ] Go Live Notification`,
-    description: `Calling all Crusasders (with <@&${roleId}>), we're live! Join us for today's cast... whatever it happens to be.`,
+    description: `We're live! Join us for today's cast... whatever it happens to be.`,
     url: `https://twitch.tv/avalonstar`,
     timestamp: moment().toISOString(),
     thumbnail: {
@@ -47,7 +48,7 @@ const sendLiveNotification = client => {
       text: `Don't worry, you haven't missed a thing. :3`
     }
   };
-  client.channels.get(channelId).send({ embed });
+  client.channels.get(channelId).send({ content, embed });
 };
 
 const subscribeToNotifications = message => {
