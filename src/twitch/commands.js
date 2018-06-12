@@ -31,6 +31,21 @@ const punt = (client, { channel, userstate }) => {
   }
 };
 
+const slap = (client, input, { channel, userstate }) => {
+  if (input.length > 1) {
+    const username = userstate['display-name'];
+    client.action(
+      channel,
+      `slaps ${username} around a bit with a large trout.`
+    );
+  } else {
+    client.action(
+      channel,
+      `slaps ${input[0]} around a bit with a large trout.`
+    );
+  }
+};
+
 const yoship = (client, { channel }) =>
   client.action(
     channel,
@@ -42,5 +57,6 @@ module.exports = {
   forward,
   fuckedd,
   punt,
+  slap,
   yoship
 };

@@ -33,6 +33,7 @@ const getCommand = (command, client, input, args) => {
     forward: () => commands.forward(client, args),
     fuckedd: () => commands.fuckedd(client, args),
     punt: () => commands.punt(client, args),
+    slap: () => commands.slap(client, input, args),
     yoship: () => commands.yoship(client, args),
 
     // Vanity.
