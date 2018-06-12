@@ -46,6 +46,12 @@ const slap = (client, input, { channel, userstate }) => {
   }
 };
 
+const subhype = (client, { channel }) =>
+  client.action(
+    channel,
+    `avalonO avalonFIESTA avalonHUG avalonO avalonFIESTA avalonHUG avalonO avalonFIESTA avalonHUG avalonO avalonFIESTA avalonHUG avalonO avalonFIESTA avalonHUG`
+  );
+
 const yoship = (client, { channel }) =>
   client.action(
     channel,
@@ -58,5 +64,6 @@ module.exports = {
   fuckedd,
   punt,
   slap,
+  subhype,
   yoship
 };

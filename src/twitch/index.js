@@ -34,6 +34,7 @@ const getCommand = (command, client, input, args) => {
     fuckedd: () => commands.fuckedd(client, args),
     punt: () => commands.punt(client, args),
     slap: () => commands.slap(client, input, args),
+    subhype: () => commands.subhype(client, args),
     yoship: () => commands.yoship(client, args),
 
     // Vanity.
