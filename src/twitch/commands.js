@@ -15,6 +15,12 @@ const forward = (client, { channel }) =>
 const fuckedd = (client, { channel }) =>
   client.action(channel, 'https://clips.twitch.tv/SavagePowerfulTaroTF2John');
 
+const hype = (client, { channel }) =>
+  client.action(
+    channel,
+    `avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE`
+  );
+
 const punt = (client, { channel, userstate }) => {
   const username = userstate['display-name'];
   if (userstate.mod === true || channel === `#${userstate.username}`) {
@@ -32,8 +38,8 @@ const punt = (client, { channel, userstate }) => {
 };
 
 const slap = (client, input, { channel, userstate }) => {
+  const username = userstate['display-name'];
   if (input.length > 1) {
-    const username = userstate['display-name'];
     client.action(
       channel,
       `slaps ${username} around a bit with a large trout.`
@@ -62,6 +68,7 @@ module.exports = {
   andback,
   forward,
   fuckedd,
+  hype,
   punt,
   slap,
   subhype,
