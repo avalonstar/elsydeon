@@ -15,11 +15,8 @@ const initializeFirebase = async () => {
     databaseURL: FIREBASE_URI
   });
 
-  const db = admin.database();
-  const snapshot = await db.ref().once('value');
-  if (snapshot.exists()) {
-    logger.info(`Firebase is connected to ${chalk.bold(`${FIREBASE_URI}`)}.`);
-  }
+  const db = admin.firestore();
+  logger.info(`Firebase is connected to ${chalk.bold(`${FIREBASE_URI}`)}.`);
 
   globals.db = db;
   return db;
