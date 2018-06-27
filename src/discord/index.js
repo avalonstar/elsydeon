@@ -17,6 +17,18 @@ const handleMessage = async message => {
   const [command, ...input] = message.content.split(' ');
 
   switch (command) {
+    case 'addquote': {
+      quotes.handleAddQuote(input, message);
+      break;
+    }
+    case 'ping': {
+      message
+        .reply(
+          `da fuq do you think I am? A robot? <:DerpDerp:431196977263411211>`
+        )
+        .catch(console.error);
+      break;
+    }
     case 'poll': {
       const isStaff = memberRole.has(staffRole.id);
       isStaff && polls.handleInput(input, message);
@@ -33,14 +45,6 @@ const handleMessage = async message => {
     }
     case 'unnotify': {
       announce.unsubscribeFromNotifications(message);
-      break;
-    }
-    case 'ping': {
-      message
-        .reply(
-          `da fuq do you think I am? A robot? <:DerpDerp:431196977263411211>`
-        )
-        .catch(console.error);
       break;
     }
     default:

@@ -4,42 +4,39 @@ const globals = require('../globals');
 
 const handleAddQuote = async payload => {
   const { db } = globals;
-  const ref = db.ref('avalonstar/quotes');
-  const increment = await ref
-    .child('count')
-    .transaction(current => (current || 0) + 1);
-  const id = increment.snapshot.val();
-  return ref
-    .child('list')
-    .child(`quote-${id}`)
-    .setWithPriority(Object.assign({ id }, payload), payload.timestamp);
+  const collection = db.collection('quotes');
+  const fetchedCollection = await collection.get();
+  const id = fetchedCollection.size + 1;
+  return collection.doc().set(Object.assign({ id }, payload));
 };
 
 const handleGetQuotes = () => {
   const { db } = globals;
-  return db.ref('avalonstar/quotes/list').once('value');
+  return db.collection('quotes').get();
 };
 
 const handleGetQuoteById = id => {
   const { db } = globals;
   return db
-    .ref('avalonstar/quotes/list')
-    .child(`quote-${id}`)
-    .once('value');
+    .collection('quotes')
+    .where('id', '==', parseInt(id, 10))
+    .get();
 };
 
 const handleGetQuoteByQuotee = quotee => {
   const { db } = globals;
-  return db
-    .ref('avalonstar/quotes/list')
-    .orderByChild('quotee')
-    .equalTo(quotee.replace('@', ''))
-    .once('value');
+  return db.collection('quotes').where('name', '==', quotee.replace('@', ''));
+};
+
+const handleQuoteListSize = () => {
+  const { db } = globals;
+  return db.collection('quotes').size;
 };
 
 module.exports = {
   handleAddQuote,
   handleGetQuotes,
   handleGetQuoteById,
-  handleGetQuoteByQuotee
+  handleGetQuoteByQuotee,
+  handleQuoteListSize
 };

@@ -22,8 +22,9 @@ const handleAddQuote = (client, input, { channel, userstate }) => {
     const payload = {
       quotee: quotee.replace('@', ''),
       quoter: userstate['display-name'],
+      source: 'twitch',
       text,
-      timestamp: Date.now()
+      timestamp: new Date(Date.now())
     };
 
     const success = `has added the quote to the database. Blame yourself or God. avalonPLS`;
@@ -47,9 +48,10 @@ const handleGetQuote = async (client, input, { channel, userstate }) => {
 
   const query = input[0];
   if (!isNaN(query)) {
-    const snapshot = await handlers.handleGetQuoteById(query);
-    if (snapshot.exists()) {
-      const quote = snapshot.val();
+    const doc = await handlers.handleGetQuoteById(query);
+    console.log(doc.data());
+    if (doc.exists) {
+      const quote = doc.data();
       client.action(channel, `grabs quote #${quote.id}: ${quote.text}`);
     } else {
       const error = `can't find the quote you asked for. Stop confusing me. avalonBAKA`;
@@ -72,9 +74,8 @@ const handleGetQuote = async (client, input, { channel, userstate }) => {
       client.action(channel, error);
     }
   } else {
-    let snapshot = await handlers.handleGetQuotes();
-    snapshot = transforms.snapshotToArray(snapshot);
-    const quote = _.sample(snapshot);
+    const snapshot = await handlers.handleGetQuotes();
+    const quote = _.sample(snapshot.docs).data();
     client.action(channel, `grabs quote #${quote.id}: ${quote.text}`);
   }
 };

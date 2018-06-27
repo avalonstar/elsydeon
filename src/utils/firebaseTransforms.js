@@ -3,9 +3,8 @@
 const snapshotToArray = snapshot => {
   const returnedArray = [];
 
-  snapshot.forEach(childSnapshot => {
-    const item = childSnapshot.val();
-    item.key = childSnapshot.key;
+  snapshot.forEach(doc => {
+    const item = doc.data();
     returnedArray.push(item);
   });
 
