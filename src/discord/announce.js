@@ -82,12 +82,12 @@ const unsubscribeFromNotifications = message => {
 };
 
 const dbListener = async client => {
-  const { db } = globals;
-  db.ref(`avalonstar/uxc`).on('child_changed', snapshot => {
-    if (snapshot.exists()) {
-      sendLiveNotification(client);
-    }
-  });
+  // const { db } = globals;
+  // db.ref(`avalonstar/uxc`).on('child_changed', snapshot => {
+  //   if (snapshot.exists()) {
+  //     sendLiveNotification(client);
+  //   }
+  // });
 };
 
 module.exports = async client => {
