@@ -54,10 +54,9 @@ const handleGetQuote = async (client, input, { channel, userstate }) => {
 
   const query = input[0];
   if (!isNaN(query)) {
-    const doc = await handlers.handleGetQuoteById(query);
-    console.log(doc.data());
-    if (doc.exists) {
-      const quote = doc.data();
+    const snapshot = await handlers.handleGetQuoteById(query);
+    if (snapshot.empty) {
+      const quote = snapshot.docs[0].data();
       client.action(channel, `grabs quote #${quote.id}: ${quote.text}`);
     } else {
       const error = `can't find the quote you asked for. Stop confusing me. avalonBAKA`;
