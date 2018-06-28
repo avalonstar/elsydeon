@@ -80,7 +80,13 @@ const handleGetQuote = async (client, input, { channel, userstate }) => {
   }
 };
 
+const handleQuoteListSize = async (client, { channel }) => {
+  const size = await handlers.handleQuoteListSize();
+  client.action(channel, `sees ${size} quotes in the database.`);
+};
+
 module.exports = {
   handleAddQuote,
-  handleGetQuote
+  handleGetQuote,
+  handleQuoteListSize
 };

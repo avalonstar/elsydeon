@@ -28,9 +28,10 @@ const handleGetQuoteByQuotee = quotee => {
   return db.collection('quotes').where('name', '==', quotee.replace('@', ''));
 };
 
-const handleQuoteListSize = () => {
+const handleQuoteListSize = async () => {
   const { db } = globals;
-  return db.collection('quotes').size;
+  const collection = await db.collection('quotes').get();
+  return collection.size;
 };
 
 module.exports = {

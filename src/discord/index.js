@@ -21,6 +21,10 @@ const handleMessage = async message => {
       quotes.handleAddQuote(input, message);
       break;
     }
+    case 'howmanyquotes': {
+      quotes.handleGetQuoteListSize(message);
+      break;
+    }
     case 'ping': {
       message
         .reply(

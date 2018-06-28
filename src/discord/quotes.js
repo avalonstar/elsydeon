@@ -83,7 +83,15 @@ const handleGetQuote = async (input, message) => {
   return quoteFound(_.sample(snapshot.docs).data());
 };
 
+const handleGetQuoteListSize = async message => {
+  const size = await handlers.handleQuoteListSize();
+  message
+    .reply(`there are **${size}** quotes in the database.`)
+    .catch(console.error);
+};
+
 module.exports = {
   handleAddQuote,
-  handleGetQuote
+  handleGetQuote,
+  handleGetQuoteListSize
 };
