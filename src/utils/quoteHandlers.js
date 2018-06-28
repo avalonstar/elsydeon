@@ -10,6 +10,15 @@ const handleAddQuote = async payload => {
   return collection.doc().set(Object.assign({ id }, payload));
 };
 
+const handleGetLatestQuote = () => {
+  const { db } = globals;
+  return db
+    .collection('quotes')
+    .orderBy('timestamp', 'desc')
+    .limit(1)
+    .get();
+};
+
 const handleGetQuotes = () => {
   const { db } = globals;
   return db.collection('quotes').get();
@@ -36,6 +45,7 @@ const handleQuoteListSize = async () => {
 
 module.exports = {
   handleAddQuote,
+  handleGetLatestQuote,
   handleGetQuotes,
   handleGetQuoteById,
   handleGetQuoteByQuotee,

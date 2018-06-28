@@ -38,6 +38,12 @@ const handleAddQuote = (client, input, { channel, userstate }) => {
   }
 };
 
+const handleGetLatestQuote = async (client, { channel }) => {
+  const snapshot = await handlers.handleGetLatestQuote();
+  const quote = snapshot.docs[0].data();
+  client.action(channel, `grabs quote #${quote.id}: ${quote.text}`);
+};
+
 const handleGetQuote = async (client, input, { channel, userstate }) => {
   if (input.length > 1) {
     const error = `slaps ${
@@ -87,6 +93,7 @@ const handleQuoteListSize = async (client, { channel }) => {
 
 module.exports = {
   handleAddQuote,
+  handleGetLatestQuote,
   handleGetQuote,
   handleQuoteListSize
 };

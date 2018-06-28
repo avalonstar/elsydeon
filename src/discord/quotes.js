@@ -47,6 +47,11 @@ const quoteFound = quote =>
     }
   );
 
+const handleGetLatestQuote = async () => {
+  const snapshot = await handlers.handleGetLatestQuote();
+  return quoteFound(snapshot.docs[0].data());
+};
+
 const handleGetQuote = async (input, message) => {
   if (input.length > 1) {
     const error = `Woah there, one word at a time, **${
@@ -92,6 +97,7 @@ const handleGetQuoteListSize = async message => {
 
 module.exports = {
   handleAddQuote,
+  handleGetLatestQuote,
   handleGetQuote,
   handleGetQuoteListSize
 };

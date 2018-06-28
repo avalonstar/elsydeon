@@ -25,6 +25,11 @@ const handleMessage = async message => {
       quotes.handleGetQuoteListSize(message);
       break;
     }
+    case 'latestquote': {
+      const quote = await quotes.handleGetLatestQuote();
+      message.channel.send(quote);
+      break;
+    }
     case 'ping': {
       message
         .reply(

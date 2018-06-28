@@ -27,6 +27,7 @@ const getCommand = (command, client, input, args) => {
     // Quotes.
     addquote: () => quotes.handleAddQuote(client, input, args),
     howmanyquotes: () => quotes.handleQuoteListSize(client, args),
+    latestquote: () => quotes.handleGetLatestQuote(client, args),
     quote: () => quotes.handleGetQuote(client, input, args),
 
     // Miscellaneous.
@@ -79,7 +80,7 @@ const initializeTwitch = () => {
   });
 
   client.on('roomstate', channel => {
-    // client.action(channel, _.sample(greetings));
+    client.action(channel, _.sample(greetings));
   });
 
   client.on('chat', (channel, userstate, message) => {
