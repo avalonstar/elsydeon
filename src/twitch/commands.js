@@ -12,6 +12,12 @@ const forward = (client, { channel }) =>
     ` / >>>>>>>>>> and <<<<<<<<< and then >>>>>>>>>> and <<<<<<<<< and then go >>>>>>>>>> and <<<<<<<<< then put one foot >`
   );
 
+const fiesta = (client, { channel }) =>
+  client.action(
+    channel,
+    `avalonFIESTA avalonFIESTA avalonFIESTA avalonFIESTA avalonFIESTA avalonFIESTA avalonFIESTA avalonFIESTA avalonFIESTA avalonFIESTA avalonFIESTA avalonFIESTA avalonFIESTA avalonFIESTA avalonFIESTA`
+  );
+
 const fuckedd = (client, { channel }) =>
   client.action(channel, 'https://clips.twitch.tv/SavagePowerfulTaroTF2John');
 
@@ -67,6 +73,7 @@ const yoship = (client, { channel }) =>
 module.exports = {
   andback,
   forward,
+  fiesta,
   fuckedd,
   hype,
   punt,

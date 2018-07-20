@@ -34,6 +34,7 @@ const getCommand = (command, client, input, args) => {
     andback: () => commands.andback(client, args),
     forward: () => commands.forward(client, args),
     fuckedd: () => commands.fuckedd(client, args),
+    fiesta: () => commands.fiesta(client, args),
     hype: () => commands.hype(client, args),
     punt: () => commands.punt(client, args),
     slap: () => commands.slap(client, input, args),
