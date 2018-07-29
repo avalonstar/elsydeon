@@ -1,7 +1,10 @@
 'use strict';
 
 const heybryan = (client, { channel }) =>
-  client.action(channel, ` ⤇ WHOA BUCKO. avalonBAKA`);
+  client.action(
+    channel,
+    ` ⤇ THIS HAND OF MINE GLOWS WITH AN AWESOME POWER. IT'S BURNING GRIP TELLS ME TO DEFEAT YOU. TAKE THIS. MY LOVE. MY ANGER. AND ALL OF MY SORROW. SHININGGGGGGGG FINGGEERRRR!~ avalonO`
+  );
 
 const heyeasy = (client, { channel }) =>
   client.action(channel, ` ⤇ Hey, I got a Thundercloud proc. avalonDERP`);
