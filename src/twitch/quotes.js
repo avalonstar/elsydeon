@@ -27,7 +27,7 @@ const handleAddQuote = (client, input, { channel, userstate }) => {
       timestamp: new Date(Date.now())
     };
 
-    const success = `has added the quote to the database. Blame yourself or God. avalonPLS`;
+    const success = `has added the quote to the database. Blame yourself or God. avalonSMUG`;
     Promise.all([
       handlers.handleAddQuote(payload),
       client.action(channel, success)
