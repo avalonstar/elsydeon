@@ -24,7 +24,7 @@ const fuckedd = (client, { channel }) =>
 const hype = (client, { channel }) =>
   client.action(
     channel,
-    `avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE avalonHYPE`
+    `avalonPOG avalonOMG avalonPOG avalonOMG avalonPOG avalonOMG avalonPOG avalonOMG avalonPOG avalonOMG avalonPOG avalonOMG avalonPOG avalonPOG avalonOMG avalonPOG avalonOMG avalonPOG`
   );
 
 const punt = (client, { channel, userstate }) => {
@@ -38,7 +38,7 @@ const punt = (client, { channel, userstate }) => {
     client.timeout(channel, userstate.username, 1, 'Asked to be punted');
     client.action(
       channel,
-      `rekt you, ${username}, for your disrespect, lalafell hater. avalonBAKA`
+      `rekt you, ${username}, for your disrespect, lalafell hater. avalonRAGE`
     );
   }
 };
@@ -61,13 +61,13 @@ const slap = (client, input, { channel, userstate }) => {
 const subhype = (client, { channel }) =>
   client.action(
     channel,
-    `avalonO avalonFIESTA avalonHUG avalonO avalonFIESTA avalonHUG avalonO avalonFIESTA avalonHUG avalonO avalonFIESTA avalonHUG avalonO avalonFIESTA avalonHUG`
+    `avalonOMG avalonFIESTA avalonHUG avalonPOG avalonOMG avalonFIESTA avalonHUG avalonPOG avalonOMG avalonFIESTA avalonHUG avalonPOG avalonOMG avalonFIESTA avalonHUG avalonPOG`
   );
 
 const yoship = (client, { channel }) =>
   client.action(
     channel,
-    `would like you to... Please look forward to it. avalonPLS`
+    `would like you to... Please look forward to it. avalonSMUG`
   );
 
 module.exports = {
