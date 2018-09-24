@@ -54,17 +54,17 @@ const getCommand = (command, client, input, args) => {
 };
 
 const greetings = [
-  `says hello. avalonDERP`,
-  `boops your nose. avalonBLEP`,
-  `scolds you for not cleaning up after yourself. avalonBAKA`,
-  `could not find the balls. avalonBLIND`,
-  `thinks your cute. avalonEYES`,
-  `is attracted to you. avalonSHY`,
-  `after realizing that you're not wearing pants: avalonWAAH`,
-  `kicked your RNG in the groin. avalonPLS`,
-  `knows what you did last summer. avalonO`,
-  `isn't here. avalonLURK`,
-  `gives you a hug because you deserve it. avalonHUG`
+  `is online and ready to serve. avalonDEFEND`
+  // `boops your nose. avalonBLEP`,
+  // `scolds you for not cleaning up after yourself. avalonBAKA`,
+  // `could not find the balls. avalonBLIND`,
+  // `thinks your cute. avalonEYES`,
+  // `is attracted to you. avalonSHY`,
+  // `after realizing that you're not wearing pants: avalonWAAH`,
+  // `kicked your RNG in the groin. avalonPLS`,
+  // `knows what you did last summer. avalonO`,
+  // `isn't here. avalonLURK`,
+  // `gives you a hug because you deserve it. avalonHUG`
 ];
 
 const handleMessage = (client, params, args) =>
