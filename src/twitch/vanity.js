@@ -18,6 +18,12 @@ const heyheather = (client, { channel }) =>
 const heykay = (client, { channel }) =>
   client.action(channel, ` ⤇ REMEMBER TO SAAAAAVVVEEEEE~ avalonRAGE`);
 
+const heymyri = (client, { channel }) =>
+  client.action(
+    channel,
+    ` ⤇ PSIONS. STOP SPLITTING. PSIONS. STOP SPLITTING. PSIONS. STOP SPLITTING. PSIONS. STOP SPLITTING. STOP. STOP. STOP.`
+  );
+
 const provoke = (client, { channel }) =>
   client.action(
     channel,
@@ -30,5 +36,6 @@ module.exports = {
   heyfires,
   heyheather,
   heykay,
+  heymyri,
   provoke
 };

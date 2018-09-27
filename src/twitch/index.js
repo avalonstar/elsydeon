@@ -47,6 +47,7 @@ const getCommand = (command, client, input, args) => {
     heyfires: () => vanity.heyfires(client, args),
     heyheather: () => vanity.heyheather(client, args),
     heykay: () => vanity.heykay(client, args),
+    heymyri: () => vanity.heymyri(client, args),
     provoke: () => vanity.provoke(client, args)
   };
 
