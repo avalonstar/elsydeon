@@ -60,7 +60,7 @@ const subscribeToNotifications = message => {
     message.member.addRole(roleId).catch(console.error);
     message
       .reply(
-        `thank you! You'll be pinged from <#446152638254284820> every time the channel goes live. <:avalonHAPPY:400012759150100482>`
+        `thank you! You'll be pinged every time the channel goes live. <:avalonHAPPY:400012759150100482>`
       )
       .catch(console.error);
   }

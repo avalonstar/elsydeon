@@ -6,6 +6,12 @@ const andback = (client, { channel }) =>
     ` / > toof eno tup neht <<<<<<<<< dna >>>>>>>>>> og neht dna <<<<<<<<< dna >>>>>>>>>> neht dna <<<<<<<<< dna >>>>>>>>>>`
   );
 
+const defend = (client, { channel }) =>
+  client.action(
+    channel,
+    `avalonDEFEND avalonDEFEND P R O T E C C avalonDEFEND avalonDEFEND`
+  );
+
 const forward = (client, { channel }) =>
   client.action(
     channel,
@@ -72,6 +78,7 @@ const yoship = (client, { channel }) =>
 
 module.exports = {
   andback,
+  defend,
   forward,
   fiesta,
   fuckedd,

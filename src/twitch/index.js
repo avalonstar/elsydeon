@@ -32,6 +32,7 @@ const getCommand = (command, client, input, args) => {
 
     // Miscellaneous.
     andback: () => commands.andback(client, args),
+    defend: () => commands.defend(client, args),
     forward: () => commands.forward(client, args),
     fuckedd: () => commands.fuckedd(client, args),
     fiesta: () => commands.fiesta(client, args),
