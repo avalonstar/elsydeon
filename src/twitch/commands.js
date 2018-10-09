@@ -7,10 +7,7 @@ const andback = (client, { channel }) =>
   );
 
 const defend = (client, { channel }) =>
-  client.action(
-    channel,
-    `avalonDEFEND avalonDEFEND P R O T E C C avalonDEFEND avalonDEFEND`
-  );
+  client.action(channel, `avalonDEFEND P R O T E C C avalonDEFEND`);
 
 const forward = (client, { channel }) =>
   client.action(
