@@ -5,10 +5,10 @@ const dotenv = require('dotenv');
 
 dotenv.load();
 
-const logger = require('./src/utils/logger');
-const db = require('./src/db');
-const discord = require('./src/discord');
-const twitch = require('./src/twitch');
+const logger = require('./utils/logger');
+const db = require('./db');
+const discord = require('./discord');
+const twitch = require('./twitch');
 
 logger.info(chalk.cyan.bold('Elsydeon says hello.'));
 

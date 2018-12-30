@@ -2,7 +2,7 @@
   "name": "elsydeon",
   "version": "1.0.0",
   "description": "Shenanigans, the bot.",
-  "main": "app.js",
+  "main": "src/index.js",
   "repository": "https://github.com/avalonstar/elsydeon.git",
   "author": "Bryan Veloso <bryan@avalonstar.com>",
   "license": "MIT",
@@ -15,7 +15,7 @@
   },
   "scripts": {
     "prestart": "npm run -s build",
-    "start": "node dist/app.js",
+    "start": "node dist/index.js",
     "dev": "nodemon src/index.js --exec \"node -r dotenv/config -r babel-register\"",
     "clean": "rimraf dist",
     "build": "npm run clean && mkdir -p dist && babel src- s -D -d dist"
