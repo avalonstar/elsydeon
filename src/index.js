@@ -1,21 +1,17 @@
-'use strict';
+import chalk from 'chalk';
+import dotenv from 'dotenv';
 
-const chalk = require('chalk');
-const dotenv = require('dotenv');
+import logger from './logger';
+import db from './db';
+import discord from './discord';
+import twitch from './twitch';
 
 dotenv.load();
 
-const logger = require('./utils/logger');
-const db = require('./db');
-const discord = require('./discord');
-const twitch = require('./twitch');
-
-logger.info(chalk.cyan.bold('Elsydeon says hello.'));
-
 async function start() {
-  await db();
+  // await db();
   await discord();
-  await twitch();
+  // await twitch();
 }
 
-start();
+start().then(() => logger.info(chalk.cyan.bold('Elsydeon says hello.')));

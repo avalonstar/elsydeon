@@ -1,12 +1,11 @@
 /* eslint-disable new-cap */
 /* eslint-disable no-param-reassign */
 
-'use strict';
+import logger from '../logger';
 
 const _ = require('lodash');
 const chalk = require('chalk');
-const logger = require('winston');
-const TwitchJS = require('twitch-js');
+const Twitch = require('twitch-js');
 
 const commands = require('./commands');
 const quotes = require('./quotes');
@@ -73,7 +72,7 @@ const handleMessage = (client, params, args) =>
   getCommand(params.command, client, params.input, args);
 
 const initializeTwitch = () => {
-  const client = new TwitchJS.client(options);
+  const client = new Twitch.client(options);
   client.connect();
 
   client.on('connected', (address, port) => {

@@ -1,8 +1,7 @@
-'use strict';
+import logger from './logger';
 
 const admin = require('firebase-admin');
 const chalk = require('chalk');
-const logger = require('winston');
 
 const globals = require('./globals');
 
