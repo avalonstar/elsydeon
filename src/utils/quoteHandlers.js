@@ -1,18 +1,16 @@
-'use strict';
-
 const globals = require('../globals');
 
 const handleAddQuote = async payload => {
-  const { db } = globals;
-  const collection = db.collection('quotes');
+  const { store } = globals;
+  const collection = store.collection('quotes');
   const fetchedCollection = await collection.get();
   const id = fetchedCollection.size + 1;
   return collection.doc().set(Object.assign({ id }, payload));
 };
 
 const handleGetLatestQuote = () => {
-  const { db } = globals;
-  return db
+  const { store } = globals;
+  return store
     .collection('quotes')
     .orderBy('timestamp', 'desc')
     .limit(1)
@@ -20,26 +18,26 @@ const handleGetLatestQuote = () => {
 };
 
 const handleGetQuotes = () => {
-  const { db } = globals;
-  return db.collection('quotes').get();
+  const { store } = globals;
+  return store.collection('quotes').get();
 };
 
 const handleGetQuoteById = id => {
-  const { db } = globals;
-  return db
+  const { store } = globals;
+  return store
     .collection('quotes')
     .where('id', '==', parseInt(id, 10))
     .get();
 };
 
 const handleGetQuoteByQuotee = quotee => {
-  const { db } = globals;
-  return db.collection('quotes').where('name', '==', quotee.replace('@', ''));
+  const { store } = globals;
+  return store.collection('quotes').where('name', '==', quotee.replace('@', ''));
 };
 
 const handleQuoteListSize = async () => {
-  const { db } = globals;
-  const collection = await db.collection('quotes').get();
+  const { store } = globals;
+  const collection = await store.collection('quotes').get();
   return collection.size;
 };
 

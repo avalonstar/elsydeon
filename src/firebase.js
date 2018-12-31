@@ -1,9 +1,8 @@
+import admin from 'firebase-admin';
+import chalk from 'chalk';
+
+import globals from './globals';
 import logger from './logger';
-
-const admin = require('firebase-admin');
-const chalk = require('chalk');
-
-const globals = require('./globals');
 
 const { FIREBASE_ADMIN_CREDENTIAL, FIREBASE_URI } = process.env;
 const serviceAccount = JSON.parse(FIREBASE_ADMIN_CREDENTIAL);
@@ -14,13 +13,16 @@ const initializeFirebase = async () => {
     databaseURL: FIREBASE_URI
   });
 
-  const db = admin.firestore();
+  const store = admin.firestore();
+  const firestoreSettings = { timestampsInSnapshots: true };
+  store.settings(firestoreSettings);
+
   logger.info(`Firebase is connected to ${chalk.bold(`${FIREBASE_URI}`)}.`);
 
-  globals.db = db;
-  return db;
+  globals.store = store;
+  return store;
 };
 
-module.exports = async () => {
+export default async () => {
   await initializeFirebase();
 };

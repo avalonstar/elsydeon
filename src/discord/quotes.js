@@ -1,20 +1,18 @@
 /* eslint-disable no-restricted-globals */
 
-'use strict';
+import _ from 'lodash';
+import moment from 'moment';
 
-const _ = require('lodash');
-const moment = require('moment');
-
-const handlers = require('../utils/quoteHandlers');
-const transforms = require('../utils/firebaseTransforms');
-const utils = require('./utils');
+import * as handlers from '../utils/quoteHandlers';
+import * as transforms from '../utils/firebaseTransforms';
+import * as utils from './utils';
 
 const formatText = text => {
   const suffix = ` , ${moment().format('YYYY')}`;
   return text + suffix;
 };
 
-const handleAddQuote = async (input, message) => {
+export const handleAddQuote = async (input, message) => {
   const quote = input.join(' ');
   const regex = /"([^"]*?)" ~ (@[A-Za-z0-9_]+)/g;
   if (regex.test(quote)) {
@@ -47,12 +45,12 @@ const quoteFound = quote =>
     }
   );
 
-const handleGetLatestQuote = async () => {
+export const handleGetLatestQuote = async () => {
   const snapshot = await handlers.handleGetLatestQuote();
   return quoteFound(snapshot.docs[0].data());
 };
 
-const handleGetQuote = async (input, message) => {
+export const handleGetQuote = async (input, message) => {
   if (input.length > 1) {
     const error = `Woah there, one word at a time, **${
       message.author.username
@@ -71,7 +69,9 @@ const handleGetQuote = async (input, message) => {
       return utils.failureEmbed(error);
     }
     return quoteFound(snapshot.docs[0].data());
-  } else if (query) {
+  } 
+  
+  if (query) {
     let snapshot = await handlers.handleGetQuotes();
     snapshot = transforms.snapshotToArray(snapshot);
     const quotes = snapshot.filter(q =>
@@ -88,16 +88,9 @@ const handleGetQuote = async (input, message) => {
   return quoteFound(_.sample(snapshot.docs).data());
 };
 
-const handleGetQuoteListSize = async message => {
+export const handleGetQuoteListSize = async message => {
   const size = await handlers.handleQuoteListSize();
   message
     .reply(`there are **${size}** quotes in the database.`)
     .catch(console.error);
-};
-
-module.exports = {
-  handleAddQuote,
-  handleGetLatestQuote,
-  handleGetQuote,
-  handleGetQuoteListSize
 };

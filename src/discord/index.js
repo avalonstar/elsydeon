@@ -1,14 +1,14 @@
 /* eslint-disable no-param-reassign */
 
-import logger from '../logger';
+import Discord from 'discord.js';
 
 import * as roles from './roles';
+import * as quotes from './quotes';
 
-const Discord = require('discord.js');
+import logger from '../logger';
 
 const polls = require('./polls');
 const announce = require('./announce');
-const quotes = require('./quotes');
 
 const prefix = '!';
 

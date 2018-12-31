@@ -1,7 +1,5 @@
-'use strict';
-
 const globals = {
-  db: null
+  store: null
 };
 
 module.exports = globals;

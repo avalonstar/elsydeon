@@ -1,6 +1,4 @@
-'use strict';
-
-const successEmbed = (contentArgs, footerArgs) => ({
+export const successEmbed = (contentArgs, footerArgs) => ({
   embed: {
     color: 4886754,
     footer: { ...footerArgs },
@@ -8,7 +6,7 @@ const successEmbed = (contentArgs, footerArgs) => ({
   }
 });
 
-const failureEmbed = description => ({
+export const failureEmbed = description => ({
   embed: {
     title: 'ERROR',
     description,
@@ -18,8 +16,3 @@ const failureEmbed = description => ({
     }
   }
 });
-
-module.exports = {
-  successEmbed,
-  failureEmbed
-};
