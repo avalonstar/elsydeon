@@ -1,8 +1,9 @@
 /* eslint-disable no-param-reassign */
 
-'use strict';
+import logger from '../logger';
 
-const logger = require('winston');
+import * as roles from './roles';
+
 const Discord = require('discord.js');
 
 const polls = require('./polls');
@@ -49,11 +50,19 @@ const handleMessage = async message => {
       break;
     }
     case 'notify': {
-      announce.subscribeToNotifications(message);
+      roles.subscribeToNotifications(message);
       break;
     }
     case 'unnotify': {
-      announce.unsubscribeFromNotifications(message);
+      roles.unsubscribeFromNotifications(message);
+      break;
+    }
+    case 'assign': {
+      roles.assignRole(message);
+      break;
+    }
+    case 'unassign': {
+      roles.unassignRole(message);
       break;
     }
     default:
@@ -66,7 +75,7 @@ const initializeDiscord = () => {
   client.login(process.env.DISCORD_TOKEN);
 
   client.on('ready', () => {
-    client.user.setPresence({ game: { name: 'avalonstar.tv', type: 3 } });
+    client.user.setPresence({ game: { name: 'avalonstar.tv (test)', type: 3 } });
     logger.info('Discord.js is connected.');
   });
 
@@ -82,6 +91,6 @@ const initializeDiscord = () => {
   return client;
 };
 
-module.exports = async () => {
+export default async () => {
   await initializeDiscord();
 };

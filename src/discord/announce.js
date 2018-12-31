@@ -51,36 +51,6 @@ const sendLiveNotification = client => {
   client.channels.get(channelId).send({ content, embed });
 };
 
-const subscribeToNotifications = message => {
-  if (message.member.roles.has(roleId)) {
-    message.reply(
-      `you're already receiving notifications, silly. Stop confusing me. <:avalonBAN:239949776249028609>`
-    );
-  } else {
-    message.member.addRole(roleId).catch(console.error);
-    message
-      .reply(
-        `thank you! You'll be pinged every time the channel goes live. <:avalonHAPPY:400012759150100482>`
-      )
-      .catch(console.error);
-  }
-};
-
-const unsubscribeFromNotifications = message => {
-  if (message.member.roles.has(roleId)) {
-    message.member.removeRole(roleId).catch(console.error);
-    message
-      .reply(
-        `sorry for bothering you. You will no longer receive go-live notifications. <:avalonFEELS:404711501929119757>`
-      )
-      .catch(console.error);
-  } else {
-    message.reply(
-      `you didn't even want to be notified in the first place. Why you gotta be like that? <:dittySAD:281983387395293185>`
-    );
-  }
-};
-
 const dbListener = async client => {
   // const { db } = globals;
   // db.ref(`avalonstar/uxc`).on('child_changed', snapshot => {
@@ -93,6 +63,3 @@ const dbListener = async client => {
 module.exports = async client => {
   await dbListener(client);
 };
-
-module.exports.subscribeToNotifications = subscribeToNotifications;
-module.exports.unsubscribeFromNotifications = unsubscribeFromNotifications;
