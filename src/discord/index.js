@@ -1,96 +1,48 @@
 /* eslint-disable no-param-reassign */
 
 import Discord from 'discord.js';
-
-import * as roles from './roles';
-import * as quotes from './quotes';
+import fs from 'fs';
 
 import logger from '../logger';
 
-const polls = require('./polls');
-const announce = require('./announce');
-
 const prefix = '!';
+const client = new Discord.Client();
+client.commands = new Discord.Collection();
 
-const handleMessage = async message => {
-  const memberRole = message.member.roles;
-  const staffRole = message.guild.roles.find('name', 'Staff');
-  const [command, ...input] = message.content.split(' ');
-
-  switch (command) {
-    case 'addquote': {
-      quotes.handleAddQuote(input, message);
-      break;
-    }
-    case 'howmanyquotes': {
-      quotes.handleGetQuoteListSize(message);
-      break;
-    }
-    case 'latestquote': {
-      const quote = await quotes.handleGetLatestQuote();
-      message.channel.send(quote);
-      break;
-    }
-    case 'ping': {
-      message
-        .reply(
-          `da fuq do you think I am? A robot? <:DerpDerp:431196977263411211>`
-        )
-        .catch(console.error);
-      break;
-    }
-    case 'poll': {
-      const isStaff = memberRole.has(staffRole.id);
-      isStaff && polls.handleInput(input, message);
-      break;
-    }
-    case 'quote': {
-      const quote = await quotes.handleGetQuote(input, message);
-      message.channel.send(quote);
-      break;
-    }
-    case 'notify': {
-      roles.subscribeToNotifications(message);
-      break;
-    }
-    case 'unnotify': {
-      roles.unsubscribeFromNotifications(message);
-      break;
-    }
-    case 'assign': {
-      roles.assignRole(message);
-      break;
-    }
-    case 'unassign': {
-      roles.unassignRole(message);
-      break;
-    }
-    default:
-      break;
-  }
-};
-
-const initializeDiscord = () => {
-  const client = new Discord.Client();
-  client.login(process.env.DISCORD_TOKEN);
-
-  client.on('ready', () => {
+const initialize = async () => {
+  client.once('ready', () => {
     client.user.setPresence({ game: { name: 'avalonstar.tv (test)', type: 3 } });
-    logger.info('Discord.js is connected.');
+    logger.info(`Discord.js connected as ${client.user.tag}. Ready to serve ${client.users.size} users.`);
+
+    const commands = fs.readdirSync('./src/discord/commands').filter(file => file.endsWith('.js'));
+    logger.info(`Discord.js is loading ${commands.length} commands.`);
+    commands.forEach(file => {
+      const command = require(`./commands/${file}`).default; // eslint-disable-line
+      client.commands.set(command.name, command);
+    });
   });
 
   client.on('message', message => {
-    if (message.author.bot) return;
-    if (!message.content.startsWith(prefix)) return;
+    if (!message.content.startsWith(prefix) || message.author.bot) return;
 
     message.content = message.content.substring(prefix.length);
-    handleMessage(message);
+    const [name, ...args] = message.content.split(' ');
+
+    const command = client.commands.get(name) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(name));
+    if (!command) return;
+
+    try {
+      command.execute(client, message, args);
+    } catch (error) {
+      logger.error(error);
+      message.reply('there was an error while trying to execute that command. Bryan fucked up.');
+    }
   });
 
-  announce(client);
+  client.login(process.env.DISCORD_TOKEN);
   return client;
-};
+}
 
 export default async () => {
-  await initializeDiscord();
+  await initialize();
 };

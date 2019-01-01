@@ -34,7 +34,7 @@ const unsubscribeFromNotifications = message => {
   }
 };
 
-const assignRole = message => {
+const assignRole = (args, message) => {
   const role = message.content.substr(message.content.indexOf(" ") + 1);
   if (Object.keys(gameRoles).includes(role)) {
     if (message.member.roles.has(gameRoles[role])) {
@@ -54,7 +54,7 @@ const assignRole = message => {
   }
 }
 
-const unassignRole = message => {
+const unassignRole = (args, message) => {
   const role = message.content.substr(message.content.indexOf(" ") + 1);
   if (Object.keys(gameRoles).includes(role)) {
     if (message.member.roles.has(gameRoles[role])) {
