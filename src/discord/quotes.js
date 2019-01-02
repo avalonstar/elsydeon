@@ -73,8 +73,7 @@ export const handleGetQuote = async (input, message) => {
   } 
   
   if (query) {
-    let snapshot = await handlers.handleGetQuotes();
-    snapshot = transforms.snapshotToArray(snapshot);
+    const snapshot = await handlers.handleGetQuotes();
     const quotes = snapshot.filter(q =>
       q.text.toLowerCase().includes(query.toLowerCase())
     );
@@ -82,11 +81,11 @@ export const handleGetQuote = async (input, message) => {
       const error = `I can't find any quotes with "**${query}**" in them.`;
       return utils.failureEmbed(error);
     }
-    return quoteFound(_.sample(quotes));
+    return quoteFound(_.shuffle(quotes).slice(0, 5)[0]);
   }
 
   const snapshot = await handlers.handleGetQuotes();
-  return quoteFound(_.sample(snapshot.docs).data());
+  return quoteFound(_.shuffle(snapshot).slice(0, 5)[0]);
 };
 
 export const handleGetQuoteListSize = async message => {
