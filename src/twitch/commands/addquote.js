@@ -7,7 +7,7 @@ const formatText = text => {
   return text + suffix;
 };
 
-const addQuote = (client, { channel, userstate }, args) => {
+const addQuote = (client, { tags, channel }, args) => {
   const quote = args.join(' ');
   const regex = /"([^"]*?)" ~ (@[A-Za-z0-9_]+)/g;
   if (regex.test(quote)) {
@@ -15,7 +15,7 @@ const addQuote = (client, { channel, userstate }, args) => {
     const text = formatText(quote);
     const payload = {
       quotee: quotee.replace('@', ''),
-      quoter: userstate['display-name'],
+      quoter: tags.displayName,
       source: 'twitch',
       text,
       timestamp: new Date(Date.now())
