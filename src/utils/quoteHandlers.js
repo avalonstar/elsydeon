@@ -1,4 +1,11 @@
-const globals = require('../globals');
+import redis from 'redis';
+import { promisify } from 'util';
+
+import globals from '../globals';
+
+const { REDIS_URL } = process.env;
+const client = redis.createClient(REDIS_URL);
+const getAsync = promisify(client.get).bind(client);
 
 const handleAddQuote = async payload => {
   const { store } = globals;
@@ -17,9 +24,9 @@ const handleGetLatestQuote = () => {
     .get();
 };
 
-const handleGetQuotes = () => {
-  const { store } = globals;
-  return store.collection('quotes').get();
+const handleGetQuotes = async () => {
+  const quotes = await getAsync('quotes');
+  return JSON.parse(quotes);
 };
 
 const handleGetQuoteById = id => {
@@ -36,9 +43,8 @@ const handleGetQuoteByQuotee = quotee => {
 };
 
 const handleQuoteListSize = async () => {
-  const { store } = globals;
-  const collection = await store.collection('quotes').get();
-  return collection.size;
+  const quotes = await getAsync('quotes');
+  return JSON.parse(quotes).length;
 };
 
 module.exports = {

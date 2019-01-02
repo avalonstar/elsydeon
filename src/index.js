@@ -2,9 +2,10 @@ import chalk from 'chalk';
 import dotenv from 'dotenv';
 import fastify from 'fastify';
 
-import logger from './logger';
-import firebase from './firebase';
 import discord from './discord';
+import firebase from './firebase';
+import logger from './logger';
+import redis from './redis';
 import twitch from './twitch';
 
 dotenv.load();
@@ -14,6 +15,7 @@ const app = fastify();
 const start = async () => {
   try {
     logger.info(chalk.cyan.bold('Elsydeon says hello.'));
+    await redis();
     await firebase();
     await discord();
     await twitch();

@@ -1,4 +1,5 @@
 /* eslint-disable no-restricted-globals */
+/* eslint-disable no-underscore-dangle */
 
 import _ from 'lodash';
 import moment from 'moment';
@@ -41,7 +42,7 @@ const quoteFound = quote =>
       description: `\`\`\`${quote.text}\`\`\``
     },
     {
-      text: `Quoted by ${quote.quoter} ${moment(quote.timestamp).fromNow()}.`
+      text: `Quoted by ${quote.quoter} ${moment(quote.timestamp._seconds * 1000).fromNow()}.`
     }
   );
 

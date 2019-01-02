@@ -1,16 +1,16 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-restricted-globals */
+/* eslint-disable no-underscore-dangle */
 
 import _ from 'lodash';
+import moment from 'moment';
 
 import { handleGetQuoteById, handleGetQuotes } from '../../utils/quoteHandlers';
-import { snapshotToArray } from '../../utils/firebaseTransforms';
 
-const handleGetQuote = async (client, { channel, userstate }, args) => {
+const handleGetQuote = async (client, { tags, channel }, args) => {
   if (args.length > 1) {
-    const error = `/me slaps ${
-      userstate['display-name']
-      }. Woah there, one word at a time. avalonBAKA`;
-    client.say(channel, error);
+    const error = `/me slaps ${tags.displayName}. Woah there, one word at a time. avalonBAKA`;
+    return client.say(channel, error);
   }
 
   const query = args[0];
@@ -21,17 +21,16 @@ const handleGetQuote = async (client, { channel, userstate }, args) => {
       client.say(channel, error);
     } else {
       const quote = snapshot.docs[0].data();
-      client.say(channel, `/me grabs quote #${quote.id}: ${quote.text}`);
+      client.say(channel, `/me grabs quote #${quote.id} from ${moment(quote.timestamp._seconds * 1000).fromNow()}: ${quote.text}`);
     }
   } else if (query) {
-    let snapshot = await handleGetQuotes();
-    snapshot = snapshotToArray(snapshot);
+    const snapshot = await handleGetQuotes();
     const quotes = snapshot.filter(q =>
       q.text.toLowerCase().includes(query.toLowerCase())
     );
     if (quotes.length > 0) {
-      const quote = _.sample(quotes);
-      const success = `/me searches for "${query}" and grabs quote #${quote.id} : ${
+      const quote = _.shuffle(quotes).slice(0, 5)[0];
+      const success = `/me searches for "${query}" and grabs quote #${quote.id} from ${moment(quote.timestamp._seconds * 1000).fromNow()}: ${
         quote.text
         }`;
       client.say(channel, success);
@@ -41,8 +40,8 @@ const handleGetQuote = async (client, { channel, userstate }, args) => {
     }
   } else {
     const snapshot = await handleGetQuotes();
-    const quote = _.sample(snapshot.docs).data();
-    client.say(channel, `/me grabs quote #${quote.id}: ${quote.text}`);
+    const quote = _.shuffle(snapshot).slice(0, 5)[0];
+    client.say(channel, `/me grabs quote #${quote.id} from ${moment(quote.timestamp._seconds * 1000).fromNow()}: ${quote.text}`);
   }
 };
 
