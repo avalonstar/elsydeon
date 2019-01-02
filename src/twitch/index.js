@@ -10,35 +10,6 @@ import logger from '../logger';
 const { TWITCH_IRC_PASSWORD, TWITCH_IRC_USERNAME } = process.env;
 const prefix = '!';
 
-const getCommand = (command, client, input, args) => {
-  const list = {
-    // Vanity.
-    // heybryan: () => vanity.heybryan(client, args),
-    // heyeasy: () => vanity.heyeasy(client, args),
-    // heyfires: () => vanity.heyfires(client, args),
-    // heyheather: () => vanity.heyheather(client, args),
-    // heykay: () => vanity.heykay(client, args),
-    // heymyri: () => vanity.heymyri(client, args),
-    // provoke: () => vanity.provoke(client, args)
-  };
-
-  return Object.keys(list).includes(command) && list[command]();
-};
-
-const greetings = [
-  `is online and ready to serve. avalonDEFEND`
-  // `boops your nose. avalonBLEP`,
-  // `scolds you for not cleaning up after yourself. avalonBAKA`,
-  // `could not find the balls. avalonBLIND`,
-  // `thinks your cute. avalonEYES`,
-  // `is attracted to you. avalonSHY`,
-  // `after realizing that you're not wearing pants: avalonWAAH`,
-  // `kicked your RNG in the groin. avalonPLS`,
-  // `knows what you did last summer. avalonO`,
-  // `isn't here. avalonLURK`,
-  // `gives you a hug because you deserve it. avalonHUG`
-];
-
 const initialize = () => {
   const { chat: client, chatConstants } = new TwitchJS({
     token: TWITCH_IRC_PASSWORD,
