@@ -1982,6 +1982,13 @@ end-of-stream@^1.0.0, end-of-stream@^1.1.0, end-of-stream@^1.4.1:
   dependencies:
     once "^1.4.0"
 
+enmap@^4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/enmap/-/enmap-4.6.0.tgz#445c479cb9869cdd7f5b8a8f3550ed6a8a1950fb"
+  integrity sha512-mQie79Z1mnLQhXixEbBTahR49Rez31zIOcOJoVAt30c+VSSt82ImhWVEvzflPDOH3CTU3VN/fmuJL9lZLtdm/g==
+  dependencies:
+    lodash "^4.17.11"
+
 ent@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/ent/-/ent-2.2.0.tgz#e964219325a21d05f44466a2f686ed6ce5f5dd1d"

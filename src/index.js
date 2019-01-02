@@ -16,7 +16,7 @@ const start = async () => {
     logger.info(chalk.cyan.bold('Elsydeon says hello.'));
     await firebase();
     await discord();
-    // await twitch();
+    await twitch();
 
     await app.listen(PORT);
     logger.info(`Fastify is running at ${chalk.bold(`localhost:${PORT}`)}.`);

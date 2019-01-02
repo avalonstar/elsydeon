@@ -1,54 +1,25 @@
 /* eslint-disable new-cap */
 /* eslint-disable no-param-reassign */
 
+import Enmap from 'enmap';
+import fs from 'fs';
+import TwitchJS from 'twitch-js';
+
 import logger from '../logger';
 
-const _ = require('lodash');
-const chalk = require('chalk');
-const Twitch = require('twitch-js');
-
-const commands = require('./commands');
-const quotes = require('./quotes');
-const vanity = require('./vanity');
-
 const { TWITCH_IRC_PASSWORD, TWITCH_IRC_USERNAME } = process.env;
-const options = {
-  channels: ['#avalonstar'],
-  identity: {
-    username: TWITCH_IRC_USERNAME,
-    password: TWITCH_IRC_PASSWORD
-  }
-};
 const prefix = '!';
 
 const getCommand = (command, client, input, args) => {
   const list = {
-    // Quotes.
-    addquote: () => quotes.handleAddQuote(client, input, args),
-    howmanyquotes: () => quotes.handleQuoteListSize(client, args),
-    latestquote: () => quotes.handleGetLatestQuote(client, args),
-    quote: () => quotes.handleGetQuote(client, input, args),
-
-    // Miscellaneous.
-    andback: () => commands.andback(client, args),
-    defend: () => commands.defend(client, args),
-    forward: () => commands.forward(client, args),
-    fuckedd: () => commands.fuckedd(client, args),
-    fiesta: () => commands.fiesta(client, args),
-    hype: () => commands.hype(client, args),
-    punt: () => commands.punt(client, args),
-    slap: () => commands.slap(client, input, args),
-    subhype: () => commands.subhype(client, args),
-    yoship: () => commands.yoship(client, args),
-
     // Vanity.
-    heybryan: () => vanity.heybryan(client, args),
-    heyeasy: () => vanity.heyeasy(client, args),
-    heyfires: () => vanity.heyfires(client, args),
-    heyheather: () => vanity.heyheather(client, args),
-    heykay: () => vanity.heykay(client, args),
-    heymyri: () => vanity.heymyri(client, args),
-    provoke: () => vanity.provoke(client, args)
+    // heybryan: () => vanity.heybryan(client, args),
+    // heyeasy: () => vanity.heyeasy(client, args),
+    // heyfires: () => vanity.heyfires(client, args),
+    // heyheather: () => vanity.heyheather(client, args),
+    // heykay: () => vanity.heykay(client, args),
+    // heymyri: () => vanity.heymyri(client, args),
+    // provoke: () => vanity.provoke(client, args)
   };
 
   return Object.keys(list).includes(command) && list[command]();
@@ -68,34 +39,47 @@ const greetings = [
   // `gives you a hug because you deserve it. avalonHUG`
 ];
 
-const handleMessage = (client, params, args) =>
-  getCommand(params.command, client, params.input, args);
+const initialize = () => {
+  const { chat: client, chatConstants } = new TwitchJS({
+    token: TWITCH_IRC_PASSWORD,
+    username: TWITCH_IRC_USERNAME
+  });
+  client.commands = new Enmap();
 
-const initializeTwitch = () => {
-  const client = new Twitch.client(options);
-  client.connect();
+  client.connect().then(async () => {
+    await client.join('avalonstar');
+    logger.info(`Twitch.js is connected.`);
 
-  client.on('connected', (address, port) => {
-    logger.info(
-      `Twitch.js is connected to ${chalk.bold(`${address}:${port}`)}.`
-    );
+    const commands = fs.readdirSync('./src/twitch/commands').filter(file => file.endsWith('.js'));
+    logger.info(`Twitch.js is loading ${commands.length} commands.`);
+    commands.forEach(file => {
+      const command = require(`./commands/${file}`).default; // eslint-disable-line
+      client.commands.set(command.name, command);
+    });
   });
 
-  client.on('roomstate', channel => {
-    client.action(channel, _.sample(greetings));
+  const log = msg => logger.silly('Twitch Message:', { msg });
+  client.on(chatConstants.EVENTS.ALL, log);
+
+  client.on('PRIVMSG', payload => {
+    if (!payload.message.startsWith(prefix)) return;
+
+    payload.message = payload.message.substring(prefix.length);
+    const [name, ...args] = payload.message.split(' ');
+
+    const command = client.commands.get(name) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(name));
+    console.log(command);
+    if (!command) return;
+
+    try {
+      console.log('payload', payload);
+      command.execute(client, payload, args);
+    } catch (error) {
+      logger.error(error);
+    }
   });
-
-  client.on('chat', (channel, userstate, message) => {
-    if (!message.startsWith(prefix)) return;
-
-    message = message.substring(prefix.length);
-    const [command, ...input] = message.split(' ');
-    handleMessage(client, { command, input }, { channel, userstate, message });
-  });
-
-  return client;
 };
 
-module.exports = async () => {
-  await initializeTwitch();
+export default async () => {
+  await initialize();
 };

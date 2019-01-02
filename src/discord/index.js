@@ -5,6 +5,7 @@ import fs from 'fs';
 
 import logger from '../logger';
 
+const { DISCORD_TOKEN } = process.env;
 const prefix = '!';
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -39,7 +40,7 @@ const initialize = async () => {
     }
   });
 
-  client.login(process.env.DISCORD_TOKEN);
+  client.login(DISCORD_TOKEN);
   return client;
 }
 
