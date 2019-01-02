@@ -40,6 +40,7 @@
     "chalk": "^2.4.1",
     "discord.js": "^11.4.2",
     "dotenv": "^6.2.0",
+    "fastify": "^1.13.3",
     "firebase-admin": "^6.4.0",
     "lodash": "^4.17.11",
     "moment": "^2.23.0",
