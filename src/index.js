@@ -18,7 +18,7 @@ const start = async () => {
     await discord();
     await twitch();
 
-    await app.listen(PORT);
+    await app.listen(PORT, '0.0.0.0');
     logger.info(`Fastify is running at ${chalk.bold(`localhost:${PORT}`)}.`);
   } catch (error) {
     logger.error(error);
