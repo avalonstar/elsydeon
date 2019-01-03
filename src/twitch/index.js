@@ -11,9 +11,10 @@ const { TWITCH_IRC_PASSWORD, TWITCH_IRC_USERNAME } = process.env;
 const prefix = '!';
 
 const initialize = () => {
-  const { chat: client, chatConstants } = new TwitchJS({
+  const { chat: client } = new TwitchJS({
     token: TWITCH_IRC_PASSWORD,
-    username: TWITCH_IRC_USERNAME
+    username: TWITCH_IRC_USERNAME, 
+    log: { level: 0 }
   });
   client.commands = new Enmap();
 
@@ -28,9 +29,6 @@ const initialize = () => {
       client.commands.set(command.name, command);
     });
   });
-
-  const log = msg => logger.silly('Twitch Message:', { msg });
-  client.on(chatConstants.EVENTS.ALL, log);
 
   client.on('PRIVMSG', payload => {
     if (!payload.message.startsWith(prefix)) return;
