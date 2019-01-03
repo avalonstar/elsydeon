@@ -1,8 +1,10 @@
 /* eslint-disable no-param-reassign */
 
+import { CronJob } from 'cron';
 import Discord from 'discord.js';
 import fs from 'fs';
 
+import getSaleEmbed from './chrono';
 import logger from '../logger';
 
 const { DISCORD_TOKEN } = process.env;
@@ -44,6 +46,16 @@ const initialize = async () => {
   return client;
 }
 
+const initializeCron = async () => {
+  const channelID = '83812209540468736';
+  const embed = await getSaleEmbed();
+  const job = new CronJob('0 1 9 * * *', () => {
+    client.channels.get(channelID).send({ embed });
+  }, null, true, 'America/Los_Angeles');
+  job.start();
+}
+
 export default async () => {
   await initialize();
+  await initializeCron();
 };
