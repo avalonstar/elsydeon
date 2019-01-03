@@ -1,5 +1,3 @@
-'use strict';
-
 const snapshotToArray = snapshot => {
   const returnedArray = [];
 

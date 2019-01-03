@@ -1,6 +1,7 @@
 import redis from 'redis';
 import { promisify } from 'util';
 
+import { snapshotToArray } from './firebaseTransforms';
 import globals from '../globals';
 
 const { REDIS_URL } = process.env;
@@ -12,7 +13,9 @@ const handleAddQuote = async payload => {
   const collection = store.collection('quotes');
   const fetchedCollection = await collection.get();
   const id = fetchedCollection.size + 1;
-  return collection.doc().set(Object.assign({ id }, payload));
+  return collection.doc().set(Object.assign({ id }, payload)).then(() => {
+    client.set('quotes', JSON.stringify(snapshotToArray(collection.get())));
+  });
 };
 
 const handleGetLatestQuote = () => {
