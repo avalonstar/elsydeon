@@ -48,8 +48,8 @@ const initialize = async () => {
 
 const initializeCron = async () => {
   const channelID = '83812209540468736';
-  const embed = await getSaleEmbed();
-  const job = new CronJob('0 10 9 * * *', () => {
+  const job = new CronJob('0 10 9 * * *', async () => {
+    const embed = await getSaleEmbed();
     client.channels.get(channelID).send({ embed });
   }, null, true, 'America/Los_Angeles');
   job.start();
