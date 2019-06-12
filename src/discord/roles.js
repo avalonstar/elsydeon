@@ -48,7 +48,7 @@ const assignRole = (args, message) => {
       )
     }
   } else {
-    message.reply (
+    message.reply(
       `the only roles you can assign to yourself are: \`${Object.keys(gameRoles).join(', ')}\``
     )
   }
@@ -62,7 +62,7 @@ const unassignRole = (args, message) => {
       message.reply(`you have removed the \`${role}\` role.`)
     } else {
       message.reply(`you didn't have the \`${role}\` role in the first place, baka.`)
-    } 
+    }
   } else {
     message.reply(
       `you can't remove a role that doesn't exist or wasn't available to be assigned in the first place.`

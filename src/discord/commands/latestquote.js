@@ -7,5 +7,5 @@ export default {
   async execute(_client, message) {
     const quote = await handleGetLatestQuote();
     message.channel.send(quote);
-  }
-}
+  },
+};

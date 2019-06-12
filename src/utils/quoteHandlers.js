@@ -13,9 +13,12 @@ const handleAddQuote = async payload => {
   const collection = store.collection('quotes');
   const fetchedCollection = await collection.get();
   const id = fetchedCollection.size + 1;
-  return collection.doc().set(Object.assign({ id }, payload)).then(() => {
-    client.set('quotes', JSON.stringify(snapshotToArray(collection.get())));
-  });
+  return collection
+    .doc()
+    .set(Object.assign({ id }, payload))
+    .then(() => {
+      client.set('quotes', JSON.stringify(snapshotToArray(collection.get())));
+    });
 };
 
 const handleGetLatestQuote = () => {
@@ -42,7 +45,9 @@ const handleGetQuoteById = id => {
 
 const handleGetQuoteByQuotee = quotee => {
   const { store } = globals;
-  return store.collection('quotes').where('name', '==', quotee.replace('@', ''));
+  return store
+    .collection('quotes')
+    .where('name', '==', quotee.replace('@', ''));
 };
 
 const handleQuoteListSize = async () => {
@@ -56,5 +61,5 @@ module.exports = {
   handleGetQuotes,
   handleGetQuoteById,
   handleGetQuoteByQuotee,
-  handleQuoteListSize
+  handleQuoteListSize,
 };

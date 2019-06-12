@@ -14,10 +14,18 @@ client.commands = new Discord.Collection();
 
 const initialize = async () => {
   client.once('ready', () => {
-    client.user.setPresence({ game: { name: 'avalonstar.tv (test)', type: 3 } });
-    logger.info(`Discord.js connected as ${client.user.tag}. Ready to serve ${client.users.size} users.`);
+    client.user.setPresence({
+      game: { name: 'avalonstar.tv (test)', type: 3 },
+    });
+    logger.info(
+      `Discord.js connected as ${client.user.tag}. Ready to serve ${
+        client.users.size
+      } users.`,
+    );
 
-    const commands = fs.readdirSync('./src/discord/commands').filter(file => file.endsWith('.js'));
+    const commands = fs
+      .readdirSync('./src/discord/commands')
+      .filter(file => file.endsWith('.js'));
     logger.info(`Discord.js is loading ${commands.length} commands.`);
     commands.forEach(file => {
       const command = require(`./commands/${file}`).default; // eslint-disable-line
@@ -31,29 +39,39 @@ const initialize = async () => {
     message.content = message.content.substring(prefix.length);
     const [name, ...args] = message.content.split(' ');
 
-    const command = client.commands.get(name) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(name));
+    const command =
+      client.commands.get(name) ||
+      client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(name));
     if (!command) return;
 
     try {
       command.execute(client, message, args);
     } catch (error) {
       logger.error(error);
-      message.reply('there was an error while trying to execute that command. Bryan fucked up.');
+      message.reply(
+        'there was an error while trying to execute that command. Bryan fucked up.',
+      );
     }
   });
 
   client.login(DISCORD_TOKEN);
   return client;
-}
+};
 
 const initializeCron = async () => {
   const channelID = '83812209540468736';
-  const job = new CronJob('0 10 9 * * *', async () => {
-    const embed = await getSaleEmbed();
-    client.channels.get(channelID).send({ embed });
-  }, null, true, 'America/Los_Angeles');
+  const job = new CronJob(
+    '0 10 9 * * *',
+    async () => {
+      const embed = await getSaleEmbed();
+      client.channels.get(channelID).send({ embed });
+    },
+    null,
+    true,
+    'America/Los_Angeles',
+  );
   job.start();
-}
+};
 
 export default async () => {
   await initialize();

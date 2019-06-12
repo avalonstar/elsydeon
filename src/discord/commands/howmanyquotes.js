@@ -7,5 +7,5 @@ export default {
   async execute(_client, message) {
     const quote = await handleGetQuoteListSize(message);
     message.channel.send(quote);
-  }
-}
+  },
+};

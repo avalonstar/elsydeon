@@ -4,5 +4,7 @@ export default {
   name: 'unnotify',
   description: 'Unassigns the @Notifications On role.',
   aliases: [],
-  async execute(_client, message) { await unsubscribeFromNotifications(message) }
-}
+  async execute(_client, message) {
+    await unsubscribeFromNotifications(message);
+  },
+};

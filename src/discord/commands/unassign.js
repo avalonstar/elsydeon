@@ -5,5 +5,7 @@ export default {
   args: true,
   description: 'Unassign a role.',
   aliases: [],
-  async execute(_client, message, args) { await unassignRole(args, message); }
-}
+  async execute(_client, message, args) {
+    await unassignRole(args, message);
+  },
+};

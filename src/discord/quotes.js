@@ -5,7 +5,6 @@ import _ from 'lodash';
 import moment from 'moment';
 
 import * as handlers from '../utils/quoteHandlers';
-import * as transforms from '../utils/firebaseTransforms';
 import * as utils from './utils';
 
 const formatText = text => {
@@ -55,7 +54,7 @@ export const handleGetQuote = async (input, message) => {
   if (input.length > 1) {
     const error = `Woah there, one word at a time, **${
       message.author.username
-    }**.`;
+      }**.`;
     return utils.failureEmbed(error);
   }
 
@@ -66,12 +65,12 @@ export const handleGetQuote = async (input, message) => {
     if (snapshot.empty) {
       const error = `I can't find the quote you asked for, **${
         message.author.username
-      }**.`;
+        }**.`;
       return utils.failureEmbed(error);
     }
     return quoteFound(snapshot.docs[0].data());
-  } 
-  
+  }
+
   if (query) {
     const snapshot = await handlers.handleGetQuotes();
     const quotes = snapshot.filter(q =>
