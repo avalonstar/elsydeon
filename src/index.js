@@ -1,5 +1,4 @@
 import chalk from 'chalk';
-import dotenv from 'dotenv';
 import fastify from 'fastify';
 
 import discord from './discord';
@@ -7,8 +6,6 @@ import firebase from './firebase';
 import logger from './logger';
 import redis from './redis';
 import twitch from './twitch';
-
-dotenv.load();
 
 const { PORT = 8080 } = process.env;
 const app = fastify();
