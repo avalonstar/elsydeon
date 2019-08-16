@@ -32,7 +32,7 @@ const handleGetQuote = async (client, { tags, channel }, args) => {
     const results = await index.search({ query });
     if (results.nbHits > 0) {
       const quote = shuffle(results.hits, Date.now())[0];
-      const success = `/me searches for "${query}" and grabs quote #${quote.id} from ${moment(quote.timestamp._seconds * 1000).fromNow()}: ${
+      const success = `/me searches for "${query}" and grabs quote #${quote.id} from ${moment(quote.timestamp).fromNow()}: ${
         quote._highlightResult.text.value
         }`;
       client.say(channel, success);
