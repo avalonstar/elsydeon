@@ -2,10 +2,15 @@
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-underscore-dangle */
 
-import _ from 'lodash';
+import algoliasearch from 'algoliasearch';
+import shuffle from 'knuth-shuffle-seeded';
 import moment from 'moment';
 
 import { handleGetQuoteById, handleGetQuotes } from '../../utils/quoteHandlers';
+
+const { ALGOLIA_APP_ID, ALGOLIA_API_KEY } = process.env;
+const search = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_API_KEY);
+const index = search.initIndex('quotes');
 
 const handleGetQuote = async (client, { tags, channel }, args) => {
   if (args.length > 1) {
@@ -24,14 +29,11 @@ const handleGetQuote = async (client, { tags, channel }, args) => {
       client.say(channel, `/me grabs quote #${quote.id} from ${moment(quote.timestamp._seconds * 1000).fromNow()}: ${quote.text}`);
     }
   } else if (query) {
-    const snapshot = await handleGetQuotes();
-    const quotes = snapshot.filter(q =>
-      q.text.toLowerCase().includes(query.toLowerCase())
-    );
-    if (quotes.length > 0) {
-      const quote = _.shuffle(quotes).slice(0, 5)[0];
+    const results = await index.search({ query });
+    if (results.nbHits > 0) {
+      const quote = shuffle(results.hits, Date.now())[0];
       const success = `/me searches for "${query}" and grabs quote #${quote.id} from ${moment(quote.timestamp._seconds * 1000).fromNow()}: ${
-        quote.text
+        quote._highlightResult.text.value
         }`;
       client.say(channel, success);
     } else {
@@ -40,7 +42,7 @@ const handleGetQuote = async (client, { tags, channel }, args) => {
     }
   } else {
     const snapshot = await handleGetQuotes();
-    const quote = _.shuffle(snapshot).slice(0, 5)[0];
+    const quote = shuffle(snapshot, Date.now())[0];
     client.say(channel, `/me grabs quote #${quote.id} from ${moment(quote.timestamp._seconds * 1000).fromNow()}: ${quote.text}`);
   }
 };
