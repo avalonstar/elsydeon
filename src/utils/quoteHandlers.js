@@ -15,7 +15,7 @@ const handleAddQuote = async payload => {
   const id = fetchedCollection.size + 1;
   return collection
     .doc()
-    .set(Object.assign({ id }, payload))
+    .set({ id, ...payload })
     .then(() => {
       client.set('quotes', JSON.stringify(snapshotToArray(collection.get())));
     });
