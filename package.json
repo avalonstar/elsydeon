@@ -32,7 +32,7 @@
     "prettier": "^1.18.2"
   },
   "dependencies": {
-    "algoliasearch": "^3.34.0",
+    "algoliasearch": "^4.1.0",
     "axios": "^0.19.0",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^10.0.3",
