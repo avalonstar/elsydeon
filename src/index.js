@@ -14,7 +14,7 @@ const start = async () => {
     logger.info(chalk.cyan.bold('Elsydeon says hello.'));
     await redis();
     await firebase();
-    // await discord();
+    await discord();
     await twitch();
 
     await app.listen(PORT, '0.0.0.0');
