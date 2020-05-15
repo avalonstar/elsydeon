@@ -13,8 +13,7 @@ const prefix = '!';
 const initialize = () => {
   const { chat: client } = new TwitchJS({
     token: TWITCH_IRC_PASSWORD,
-    username: TWITCH_IRC_USERNAME,
-    log: { level: 0 }
+    username: TWITCH_IRC_USERNAME
   });
   client.commands = new Enmap();
 
