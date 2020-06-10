@@ -52,6 +52,7 @@
     "number-to-words": "^1.2.4",
     "redis": "^2.8.0",
     "rimraf": "^3.0.0",
+    "twitch": "^4.0.10",
     "twitch-js": "^2.0.0-beta.30",
     "winston": "^3.2.1"
   },
