@@ -7,7 +7,7 @@ import logger from './logger';
 import redis from './redis';
 import twitch from './twitch';
 
-const { PORT = 8080 } = process.env;
+const { PORT = '8080' } = process.env;
 const app = fastify();
 const start = async () => {
   try {
@@ -17,7 +17,7 @@ const start = async () => {
     await discord();
     await twitch();
 
-    await app.listen(PORT, '0.0.0.0');
+    await app.listen(parseInt(PORT), '0.0.0.0');
     logger.info(`Fastify is running at ${chalk.bold(`localhost:${PORT}`)}.`);
   } catch (error) {
     logger.error(error);
