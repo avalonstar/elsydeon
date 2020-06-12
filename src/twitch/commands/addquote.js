@@ -19,7 +19,7 @@ const addQuote = (client, { tags, channel }, args) => {
       year,
       quotee: quotee.replace('@', ''),
       quoter: tags.displayName,
-      timestamp: new Date(Date.now())
+      timestamp: new Date().toISOString()
     };
 
     const success = `/me has added the quote to the database. Blame yourself or God. avalonSMUG`;
