@@ -2,8 +2,8 @@ import moment from 'moment';
 
 import { handleAddQuote } from '../../utils/quoteHandlers';
 
-const formatText = text => {
-  const suffix = ` , ${moment().format('YYYY')}`;
+const formatText = (text, year) => {
+  const suffix = ` , ${year}`;
   return text + suffix;
 };
 
@@ -12,13 +12,14 @@ const addQuote = (client, { tags, channel }, args) => {
   const regex = /"([^"]*?)" ~ (@[A-Za-z0-9_]+)/g;
   if (regex.test(quote)) {
     const quotee = quote.split(regex)[2];
-    const text = formatText(quote);
+    const year = moment().format('YYYY')
+    const text = formatText(quote, year);
     const payload = {
+      text,
+      year,
       quotee: quotee.replace('@', ''),
       quoter: tags.displayName,
-      source: 'twitch',
-      text,
-      timestamp: new Date(Date.now())
+      timestamp: new Date().toISOString()
     };
 
     const success = `/me has added the quote to the database. Blame yourself or God. avalonSMUG`;
@@ -34,6 +35,7 @@ const addQuote = (client, { tags, channel }, args) => {
 
 export default {
   name: 'addquote',
+  aliases: ['quoteadd'],
   args: true,
   description: 'Add a quote to the quote database.',
   aliases: ['quoteadd'],
