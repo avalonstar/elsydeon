@@ -15,7 +15,7 @@ client.commands = new Discord.Collection();
 const initialize = async () => {
   client.once('ready', () => {
     client.user.setPresence({
-      game: { name: 'avalonstar.tv (test)', type: 3 },
+      game: { name: 'avalonstar.tv', type: 3 },
     });
     logger.info(
       `Discord.js connected as ${client.user.tag}. Ready to serve ${
