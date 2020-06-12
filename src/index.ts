@@ -2,7 +2,6 @@ import chalk from 'chalk';
 import fastify from 'fastify';
 
 import discord from './discord';
-import firebase from './firebase';
 import logger from './logger';
 import twitch from './twitch';
 
@@ -11,7 +10,6 @@ const app = fastify();
 const start = async () => {
   try {
     logger.info(chalk.cyan.bold('Elsydeon says hello.'));
-    await firebase();
     await discord();
     await twitch();
 

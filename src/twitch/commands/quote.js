@@ -1,7 +1,3 @@
-/* eslint-disable consistent-return */
-/* eslint-disable no-restricted-globals */
-/* eslint-disable no-underscore-dangle */
-
 import algoliasearch from 'algoliasearch'
 import shuffle from 'knuth-shuffle-seeded'
 import moment from 'moment'

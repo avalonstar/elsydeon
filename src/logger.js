@@ -11,6 +11,7 @@ const formatParams = info => {
 
 const logger = createLogger({
   level: 'verbose',
+  exitOnError: false,
   format: format.combine(
     format.colorize(),
     format.timestamp(),
