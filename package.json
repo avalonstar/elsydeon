@@ -47,7 +47,7 @@
     "cron": "^1.7.1",
     "discord.js": "^11.5.1",
     "dotenv": "^8.1.0",
-    "enmap": "^5.1.2",
+    "enmap": "^5.4.0",
     "fastify": "^2.7.1",
     "faunadb": "^2.14.2",
     "knuth-shuffle-seeded": "^1.0.6",
