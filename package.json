@@ -52,7 +52,7 @@
     "faunadb": "^2.14.2",
     "knuth-shuffle-seeded": "^1.0.6",
     "lodash": "^4.17.20",
-    "moment": "^2.24.0",
+    "moment": "^2.29.0",
     "number-to-words": "^1.2.4",
     "random": "^2.2.0",
     "rimraf": "^3.0.0",
