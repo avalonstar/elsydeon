@@ -6,6 +6,6 @@ export default {
   aliases: ['lastquote'],
   async execute(client, { channel }) {
     const quote = await handleGetLatestQuote();
-    client.say(channel, `/me grabs this quote: ${quote.text}`);
+    client.say(channel, `/me grabs the most recent quote (#${quote.id}): ${quote.text} ~ ${quote.quotee}`);
   }
 }

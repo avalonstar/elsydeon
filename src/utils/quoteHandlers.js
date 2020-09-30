@@ -6,7 +6,7 @@ const client = new GraphQLClient(endpoint)
 const handleQuoteListSize = async () => {
   const query = gql`
     query {
-      count
+      quoteCount
     }
   `
 
@@ -42,15 +42,25 @@ const handleAddQuote = async payload => {
   try {
     await client.request(mutation, payload)
   } catch (e) {
-    console.error(e);
+    console.error(e)
   }
 }
 
 const handleGetLatestQuote = async () => {
-  const query = await client.query(
-    q.Get(q.Match(q.Index('quotes_sort_by_ref'))),
-  )
-  return query.data
+  const query = gql`
+    query {
+      latestQuote {
+        id
+        text
+        quotee
+        quoter
+        timestamp
+      }
+    }
+  `
+
+  const result = await client.request(query)
+  return result.latestQuote
 }
 
 const handleGetQuoteById = async id => {
