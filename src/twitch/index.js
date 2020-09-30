@@ -40,10 +40,9 @@ const initialize = () => {
     if (!command) return;
 
     try {
-      console.log('payload', payload);
-      command.execute(client, payload, args);
+      command.execute(client, payload, args)
     } catch (error) {
-      logger.error(error);
+      logger.error(error)
     }
   });
 };

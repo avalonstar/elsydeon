@@ -1,8 +1,8 @@
-import faunadb from 'faunadb'
+import { GraphQLClient, gql } from 'graphql-request'
 import random from 'random'
 
-const q = faunadb.query
-const client = new faunadb.Client({ secret: process.env.FAUNA_SECRET_KEY })
+const endpoint = 'https://api.landale.app/graphql'
+const client = new GraphQLClient(endpoint)
 
 const handleQuoteListSize = async () => {
   const query = await client.query(
@@ -28,28 +28,69 @@ const handleGetLatestQuote = async () => {
 }
 
 const handleGetQuoteById = async id => {
-  const query = await client.query(q.Get(q.Ref(q.Collection('Quotes'), id)))
-  console.log('query', query)
-  return query.data
+  const query = gql`
+    query getQuoteById($id: Int!) {
+      quote(id: $id) {
+        id
+        text
+        quotee
+        quoter
+        timestamp
+      }
+    }
+  `
+
+  try {
+    const result = await client.request(query, { id })
+    return result.quote
+  } catch (e) {
+    return null
+  }
 }
 
-const handleGetQuoteByQuotee = async quotee => {
-  const query = await client.query(q.Match(q.Index('quotes_by_quotee'), quotee))
-  return query.data
+const handleGetQuoteByTerm = async term => {
+  const query = gql`
+    query getQuoteById($term: String!) {
+      quote(term: $term) {
+        id
+        text
+        quotee
+        quoter
+        timestamp
+      }
+    }
+  `
+
+  try {
+    const result = await client.request(query, { term })
+    return result.quote
+  } catch (e) {
+    return null
+  }
 }
 
-const handleGetQuotes = async () => {
-  const size = await handleQuoteListSize()
-  const id = random.int(1, parseInt(size, 10))
-  const quote = await handleGetQuoteById(id)
-  return { id, quote }
+const handleGetRandomQuote = async () => {
+  const query = gql`
+    query {
+      quote {
+        id
+        text
+        quotee
+        quoter
+        timestamp
+      }
+    }
+  `
+
+  const result = await client.request(query)
+  return result.quote
 }
 
 module.exports = {
   handleAddQuote,
   handleGetLatestQuote,
   handleGetQuoteById,
-  handleGetQuoteByQuotee,
-  handleGetQuotes,
+  handleGetQuoteByTerm,
+  handleGetRandomQuote,
   handleQuoteListSize,
 }

@@ -2,7 +2,7 @@
 /* eslint-disable no-underscore-dangle */
 
 import _ from 'lodash';
-import moment from 'moment';
+import { format, parseISO } from 'date-fns'
 
 import * as handlers from '../utils/quoteHandlers';
 import * as utils from './utils';
@@ -37,13 +37,15 @@ export const handleAddQuote = async (input, message) => {
 const quoteFound = quote =>
   utils.successEmbed(
     {
-      title: `Quote #${quote.id}`,
-      description: `\`\`\`${quote.text}\`\`\``
+      description: `\`\`\`“${quote.text}” ~ @${quote.quotee}\`\`\``,
     },
     {
-      text: `Quoted by ${quote.quoter} ${moment(quote.timestamp._seconds * 1000).fromNow()}.`
-    }
-  );
+      text: `Quote #${quote.id}, quoted by ${quote.quoter} in ${format(
+        parseISO(quote.timestamp),
+        'MMMM \'of\' yyyy',
+      )}.`,
+    },
+  )
 
 export const handleGetLatestQuote = async () => {
   const snapshot = await handlers.handleGetLatestQuote();
@@ -61,30 +63,25 @@ export const handleGetQuote = async (input, message) => {
   const query = input[0];
 
   if (!isNaN(query)) {
-    const snapshot = await handlers.handleGetQuoteById(query);
-    if (snapshot.empty) {
-      const error = `I can't find the quote you asked for, **${
-        message.author.username
-        }**.`;
-      return utils.failureEmbed(error);
+    const result = await handlers.handleGetQuoteById(Number(query))
+    if (!result) {
+      const error = `I can't find the quote you asked for, **${message.author.username}**.`
+      return utils.failureEmbed(error)
     }
-    return quoteFound(snapshot.docs[0].data());
+    return quoteFound(result)
   }
 
   if (query) {
-    const snapshot = await handlers.handleGetQuotes();
-    const quotes = snapshot.filter(q =>
-      q.text.toLowerCase().includes(query.toLowerCase())
-    );
-    if (!quotes.length > 0) {
-      const error = `I can't find any quotes with "**${query}**" in them.`;
-      return utils.failureEmbed(error);
+    const result = await handlers.handleGetQuoteByTerm(query)
+    if (!result) {
+      const error = `I can't find any quotes with "**${query}**" in them.`
+      return utils.failureEmbed(error)
     }
-    return quoteFound(_.shuffle(quotes).slice(0, 5)[0]);
+    return quoteFound(result)
   }
 
-  const snapshot = await handlers.handleGetQuotes();
-  return quoteFound(_.shuffle(snapshot).slice(0, 5)[0]);
+  const result = await handlers.handleGetRandomQuote()
+  return quoteFound(result)
 };
 
 export const handleGetQuoteListSize = async message => {
