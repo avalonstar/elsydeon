@@ -1,23 +1,49 @@
 import { GraphQLClient, gql } from 'graphql-request'
-import random from 'random'
 
 const endpoint = 'https://api.landale.app/graphql'
 const client = new GraphQLClient(endpoint)
 
 const handleQuoteListSize = async () => {
-  const query = await client.query(
-    q.Paginate(q.Match(q.Index('quotes_sort_by_ref'))),
-  )
-  const result = query.data[0]
-  return result[1].id
+  const query = gql`
+    query {
+      count
+    }
+  `
+
+  const result = await client.request(query)
+  return result
 }
 
 const handleAddQuote = async payload => {
-  const size = await handleQuoteListSize()
-  const id = parseInt(size) + 1
-  const addQuote = client.query(
-    q.Create(q.Ref(q.Collection('Quotes'), id), { data: payload }),
-  )
+  const mutation = gql`
+    mutation AddQuote(
+      $quotee: String!, 
+      $quoter: String!, 
+      $text: String!, 
+      timestamp: Date!,
+      year: String!
+    ) {
+      addQuote(quote: {
+        quotee: $quotee,
+        quoter: $quoter,
+        text: $text,
+        timestamp: $timestamp
+        year: $year,
+      }) {
+        quotee
+        quoter
+        text
+        timestamp
+        year
+      }
+    }
+  `
+
+  try {
+    await client.request(mutation, payload)
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 const handleGetLatestQuote = async () => {

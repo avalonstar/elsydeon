@@ -85,8 +85,8 @@ export const handleGetQuote = async (input, message) => {
 };
 
 export const handleGetQuoteListSize = async message => {
-  const size = await handlers.handleQuoteListSize();
+  const { count } = await handlers.handleQuoteListSize();
   message
-    .reply(`there are **${size}** quotes in the database.`)
+    .reply(`there are **${count}** quotes in the database.`)
     .catch(console.error);
 };
