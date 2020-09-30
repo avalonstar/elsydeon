@@ -16,7 +16,7 @@
   "scripts": {
     "prestart": "npm run -s build",
     "start": "node dist/index.js",
-    "dev": "nodemon",
+    "dev": "ts-node-dev src",
     "clean": "rimraf ./dist",
     "build": "npm run clean && tsc"
   },
@@ -31,8 +31,8 @@
     "eslint-plugin-prettier": "^3.1.0",
     "husky": "^3.0.4",
     "lint-staged": "^9.2.5",
-    "nodemon": "^2.0.4",
     "prettier": "^1.18.2",
+    "ts-node-dev": "^1.0.0-pre.63",
     "typescript": "^3.9.5"
   },
   "dependencies": {
