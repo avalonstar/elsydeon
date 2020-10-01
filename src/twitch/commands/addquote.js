@@ -1,4 +1,4 @@
-import moment from 'moment';
+import { format } from 'date-fns'
 
 import { handleAddQuote } from '../../utils/quoteHandlers';
 
@@ -12,7 +12,7 @@ const addQuote = (client, { tags, channel }, args) => {
   const regex = /"([^"]*?)" ~ (@[A-Za-z0-9_]+)/g;
   if (regex.test(quote)) {
     const quotee = quote.split(regex)[2];
-    const year = moment().format('YYYY')
+    const year = format(new Date(), 'yyyy')
     const text = formatText(quote, year);
     const payload = {
       text,
