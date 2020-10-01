@@ -4,7 +4,9 @@ FROM node:12.13-alpine As development
 WORKDIR /usr/src/app
 
 COPY package.json yarn.lock ./
+RUN apk add --no-cache --virtual .build-deps alpine-sdk python
 RUN yarn
+RUN apk del .build-deps
 
 COPY . .
 
@@ -19,7 +21,9 @@ ENV NODE_ENV=${NODE_ENV}
 WORKDIR /usr/src/app
 
 COPY package.json yarn.lock ./
+RUN apk add --no-cache --virtual .build-deps alpine-sdk python
 RUN yarn --production
+RUN apk del .build-deps
 
 COPY . .
 
