@@ -1,7 +1,3 @@
-/* eslint-disable no-restricted-globals */
-/* eslint-disable no-underscore-dangle */
-
-import _ from 'lodash';
 import { format, parseISO } from 'date-fns'
 
 import * as handlers from '../utils/quoteHandlers';
@@ -85,7 +81,7 @@ export const handleGetQuote = async (input, message) => {
 };
 
 export const handleGetQuoteListSize = async message => {
-  const { count } = await handlers.handleQuoteListSize();
+  const { quoteCount: count } = await handlers.handleQuoteListSize();
   message
     .reply(`there are **${count}** quotes in the database.`)
     .catch(console.error);
