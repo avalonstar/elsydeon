@@ -1,14 +1,5 @@
 import { createLogger, format, transports } from 'winston';
 
-const formatParams = info => {
-  const { timestamp, level, message, ...args } = info;
-  const ts = timestamp.slice(0, 19).replace('T', ' ');
-
-  return `${ts} ${level}: ${message} ${
-    Object.keys(args).length ? JSON.stringify(args, '', '') : ''
-    }`;
-};
-
 const logger = createLogger({
   level: 'verbose',
   exitOnError: false,
@@ -16,7 +7,9 @@ const logger = createLogger({
     format.colorize(),
     format.timestamp(),
     format.align(),
-    format.printf(formatParams)
+    format.printf(nfo => {
+      return `${nfo.timestamp} ${nfo.level}: ${nfo.message}`;
+    })
   ),
   transports: [new transports.Console()]
 });

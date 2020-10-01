@@ -3,18 +3,15 @@ import { GraphQLClient, gql } from 'graphql-request'
 const endpoint = 'https://api.landale.app/graphql'
 const client = new GraphQLClient(endpoint)
 
-const handleQuoteListSize = async () => {
-  const query = gql`
-    query {
-      quoteCount
-    }
-  `
-
-  const result = await client.request(query)
-  return result
+interface Quote {
+  quotee: string
+  quoter: string
+  text: string
+  timestamp: string
+  year: string
 }
 
-const handleAddQuote = async payload => {
+const handleAddQuote = async (payload: Quote)  => {
   const mutation = gql`
     mutation AddQuote(
       $quotee: String!, 
@@ -63,7 +60,7 @@ const handleGetLatestQuote = async () => {
   return result.latestQuote
 }
 
-const handleGetQuoteById = async id => {
+const handleGetQuoteById = async (id: number) => {
   const query = gql`
     query getQuoteById($id: Int!) {
       quote(id: $id) {
@@ -84,7 +81,7 @@ const handleGetQuoteById = async id => {
   }
 }
 
-const handleGetQuoteByTerm = async term => {
+const handleGetQuoteByTerm = async (term: string) => {
   const query = gql`
     query getQuoteById($term: String!) {
       quote(term: $term) {
@@ -122,7 +119,18 @@ const handleGetRandomQuote = async () => {
   return result.quote
 }
 
-module.exports = {
+const handleQuoteListSize = async () => {
+  const query = gql`
+    query {
+      quoteCount
+    }
+  `
+
+  const result = await client.request(query)
+  return result
+}
+
+export {
   handleAddQuote,
   handleGetLatestQuote,
   handleGetQuoteById,
