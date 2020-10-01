@@ -1,20 +1,14 @@
-import chalk from 'chalk';
-import fastify from 'fastify';
+import chalk from 'chalk'
 
 import discord from './discord';
 import logger from './logger';
 import twitch from './twitch';
 
-const { PORT = '8080' } = process.env;
-const app = fastify();
 const start = async () => {
   try {
-    logger.info(chalk.cyan.bold('Elsydeon says hello.'));
+    logger.info(chalk.cyan.bold('Elsydeon says hello.'))
     await discord();
-    await twitch();
-
-    await app.listen(parseInt(PORT), '0.0.0.0');
-    logger.info(`Fastify is running at ${chalk.bold(`localhost:${PORT}`)}.`);
+    await twitch()
   } catch (error) {
     logger.error(error);
     process.exit(1);

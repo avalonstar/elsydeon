@@ -1,14 +1,16 @@
-import algoliasearch from 'algoliasearch'
-import shuffle from 'knuth-shuffle-seeded'
-import moment from 'moment'
+import { format, parseISO } from 'date-fns'
 
-import { handleGetQuoteById, handleGetQuotes } from '../../utils/quoteHandlers'
+import {
+  handleGetQuoteById,
+  handleGetQuoteByTerm,
+  handleGetRandomQuote,
+} from '../../utils/quoteHandlers'
 
-const { ALGOLIA_APP_ID, ALGOLIA_API_KEY } = process.env
-const search = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_API_KEY)
-const index = search.initIndex('quotes')
+const getTimestamp = timestamp => format(parseISO(timestamp), 'MMMM yyyy')
 
 const handleGetQuote = async (client, { tags, channel }, args) => {
+  let message
+
   if (args.length > 1) {
     const error = `/me slaps ${tags.displayName}. Woah there, one word at a time. avalonBAKA`
     return client.say(channel, error)
@@ -16,43 +18,28 @@ const handleGetQuote = async (client, { tags, channel }, args) => {
 
   const query = args[0]
   if (!isNaN(query)) {
-    const snapshot = await handleGetQuoteById(query)
-    if (snapshot.empty) {
-      const error = `/me can't find the quote you asked for. Stop confusing me. avalonBAKA`
-      client.say(channel, error)
+    const result = await handleGetQuoteById(Number(query))
+    if (result) {
+      const timestamp = getTimestamp(result.timestamp)
+      message = `/me yeets quote #${result.id} from ${timestamp}: “${result.text}” ~ @${result.quotee}`
     } else {
-      const quote = snapshot
-      client.say(
-        channel,
-        `/me yeets quote #${query} from ${moment(
-          quote.timestamp,
-        ).fromNow()}: “${quote.text}” ~ @${quote.quotee} , ${quote.year}`,
-      )
+      message = `/me can't find the quote you asked for. Stop confusing him. avalonBAKA`
     }
   } else if (query) {
-    const results = await index.search({ query })
-    if (results.nbHits > 0) {
-      const quote = shuffle(results.hits, Date.now())[0]
-      const success = `/me searches for “${query}” and grabs quote #${
-        quote.id
-      } from ${moment(quote.timestamp).fromNow()}: ${
-        quote._highlightResult.text.value
-      }`
-      client.say(channel, success)
+    const result = await handleGetQuoteByTerm(query)
+    if (result) {
+      const timestamp = getTimestamp(result.timestamp)
+      message = `/me searches for “${query}” and grabs quote #${result.id} from ${timestamp}: “${result.text}” ~ @${result.quotee}`
     } else {
-      const error = `/me can't find any quotes with "${query}" in them. avalonBLIND`
-      client.say(channel, error)
+      message = `/me can't find any quotes with "${query}" in them. avalonBLIND`
     }
   } else {
-    const { id, quote } = await handleGetQuotes()
-    console.log('quote', quote)
-    client.say(
-      channel,
-      `/me grabs quote #${id} from ${moment(quote.timestamp).fromNow()}: “${
-        quote.text
-      }” ~ @${quote.quotee} , ${quote.year}`,
-    )
+    const result = await handleGetRandomQuote()
+    const timestamp = getTimestamp(result.timestamp)
+    message = `/me fetches quote #${result.id} from ${timestamp}: “${result.text}” ~ @${result.quotee}`
   }
+
+  return client.say(channel, message)
 }
 
 export default {
