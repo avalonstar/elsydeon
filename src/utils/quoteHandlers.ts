@@ -1,15 +1,8 @@
 import { GraphQLClient, gql } from 'graphql-request'
+import { Quote } from 'types'
 
 const endpoint = 'https://api.landale.app/graphql'
 const client = new GraphQLClient(endpoint)
-
-interface Quote {
-  quotee: string
-  quoter: string
-  text: string
-  timestamp: string
-  year: string
-}
 
 const handleAddQuote = async (payload: Quote)  => {
   const mutation = gql`

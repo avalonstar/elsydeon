@@ -1,9 +1,9 @@
-import axios from 'axios';
-import Discord from 'discord.js';
+import axios from 'axios'
+import Discord from 'discord.js'
 
 const getSaleEmbed = async () => {
-  const { data } = await axios.get('https://api.chrono.gg/sale');
-  const embed = new Discord.RichEmbed()
+  const { data } = await axios.get('https://api.chrono.gg/sale')
+  const embed = new Discord.MessageEmbed()
     .setTitle(`Today's Chrono Deal: **${data.name}**`)
     .setColor('#45295c')
     .setFooter(
@@ -17,8 +17,8 @@ const getSaleEmbed = async () => {
     .setTimestamp()
     .setURL('https://chrono.gg/avalonstar/')
     .addField('Sale Price', `$${data.sale_price} (${data.discount} off)`, true)
-    .addField('Original Price', `$${data.normal_price}`, true);
-  return embed;
-};
+    .addField('Original Price', `$${data.normal_price}`, true)
+  return embed
+}
 
-export default getSaleEmbed;
+export default getSaleEmbed
