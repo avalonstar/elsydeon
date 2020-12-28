@@ -1701,10 +1701,10 @@ tweetnacl@^1.0.3:
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-1.0.3.tgz#ac0af71680458d8a6378d0d0d050ab1407d35596"
   integrity sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw==
 
-twitch-js@^2.0.0-beta.33:
-  version "2.0.0-beta.33"
-  resolved "https://registry.yarnpkg.com/twitch-js/-/twitch-js-2.0.0-beta.33.tgz#08c2287b236313ae0429d85d8bca1732494743db"
-  integrity sha512-4INGDTYWlPLcuZ73/5sTiI5Z1rgwffzomgmY7ULPuI40HrNGhDASYvsHq+qFXdoyBrQFkZRsibI2n/m/2ERxCQ==
+twitch-js@^2.0.0-beta.34:
+  version "2.0.0-beta.34"
+  resolved "https://registry.yarnpkg.com/twitch-js/-/twitch-js-2.0.0-beta.34.tgz#18ed0fe77a2d9b86e4b542c9568ba9c573a7a5b8"
+  integrity sha512-KOQFFvB4NAefigLIuuXWjo8xUe+ixo8cjhNvrVTaZV50wZ8rScrae/XeQvLaY06f51TJdIeSni2pYSkRtz2Oeg==
   dependencies:
     "@types/invariant" "^2.2.30"
     "@types/lodash-es" "^4.17.3"
