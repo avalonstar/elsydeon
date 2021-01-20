@@ -26,7 +26,7 @@
     "cron": "^1.7.1",
     "date-fns": "^2.16.1",
     "discord.js": "^12.5.1",
-    "enmap": "^5.8.2",
+    "enmap": "^5.8.4",
     "graphql": "^15.4.0",
     "graphql-request": "^3.3.0",
     "number-to-words": "^1.2.4",
