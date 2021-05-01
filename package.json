@@ -28,7 +28,7 @@
     "discord.js": "^12.5.1",
     "enmap": "^5.8.2",
     "graphql": "^15.4.0",
-    "graphql-request": "^3.3.0",
+    "graphql-request": "^3.4.0",
     "number-to-words": "^1.2.4",
     "rimraf": "^3.0.0",
     "twitch-js": "^2.0.0-beta.33",
