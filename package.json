@@ -31,7 +31,7 @@
     "graphql-request": "^3.3.0",
     "number-to-words": "^1.2.4",
     "rimraf": "^3.0.0",
-    "twitch-js": "^2.0.0-beta.33",
+    "twitch-js": "^2.0.0-beta.42",
     "winston": "^3.3.3"
   },
   "prettier": {
